@@ -1,4 +1,4 @@
 # dots
 Basic configurations.
 
-![Screenshot_20230713_103040](https://github.com/ms-bis/dots/assets/87420375/42ff8431-e586-43d5-a0bf-3dd660eb3359)
+![default](https://github.com/ms-bis/dots/assets/87420375/1b8fa20a-eed4-45c5-b753-033ca3fe82b7)
