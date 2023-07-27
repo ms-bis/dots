@@ -1,4 +1,3 @@
 # dots
-Basic configurations.
 
-![Screenshot_20230713_103040](https://github.com/ms-bis/dots/assets/87420375/42ff8431-e586-43d5-a0bf-3dd660eb3359)
+![Screenshot_20230716_012657](https://github.com/ms-bis/dots/assets/87420375/abdc0a35-d49b-414e-92d6-10d6e2f9e0ef)
