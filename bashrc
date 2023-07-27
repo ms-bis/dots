@@ -1,4 +1,4 @@
-# Enable the subsequent settings only in interactive sessions
+# general
 case $- in
     *i*) ;;
     *) return ;;
@@ -7,126 +7,24 @@ esac
 # Path to your oh-my-bash installation.
 export OSH='/home/msbis/.oh-my-bash'
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-bash is loaded.
-OSH_THEME=""
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_OSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.  One of the following values can
-# be used to specify the timestamp format.
-# * 'mm/dd/yyyy'     # mm/dd/yyyy + time
-# * 'dd.mm.yyyy'     # dd.mm.yyyy + time
-# * 'yyyy-mm-dd'     # yyyy-mm-dd + time
-# * '[mm/dd/yyyy]'   # [mm/dd/yyyy] + [time] with colors
-# * '[dd.mm.yyyy]'   # [dd.mm.yyyy] + [time] with colors
-# * '[yyyy-mm-dd]'   # [yyyy-mm-dd] + [time] with colors
-# If not set, the default value is 'yyyy-mm-dd'.
-# HIST_STAMPS='yyyy-mm-dd'
-
-# Uncomment the following line if you do not want OMB to overwrite the existing
-# aliases by the default OMB aliases defined in lib/*.sh
-# OMB_DEFAULT_ALIASES="check"
-
-# Would you like to use another custom folder than $OSH/custom?
-# OSH_CUSTOM=/path/to/new-custom-folder
-
-# To disable the uses of "sudo" by oh-my-bash, please set "false" to
-# this variable.  The default behavior for the empty value is "true".
+# OSH_THEME=""
 OMB_USE_SUDO=true
-
-# Which completions would you like to load? (completions can be found in ~/.oh-my-bash/completions/*)
-# Custom completions may be added to ~/.oh-my-bash/custom/completions/
-# Example format: completions=(ssh git bundler gem pip pip3)
-# Add wisely, as too many completions slow down shell startup.
 completions=(
     git
     composer
     ssh
 )
 
-# Which aliases would you like to load? (aliases can be found in ~/.oh-my-bash/aliases/*)
-# Custom aliases may be added to ~/.oh-my-bash/custom/aliases/
-# Example format: aliases=(vagrant composer git-avh)
-# Add wisely, as too many aliases slow down shell startup.
 aliases=(
     general
 )
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-bash/plugins/*)
-# Custom plugins may be added to ~/.oh-my-bash/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git
     bashmarks
 )
 
-# Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
-# Custom plugins may be added to ~/.oh-my-bash/custom/plugins/
-# Example format:
-#  if [ "$DISPLAY" ] || [ "$SSH" ]; then
-#      plugins+=(tmux-autoattach)
-#  fi
-
 source "$OSH"/oh-my-bash.sh
-
-# User configuration
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-bash libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-bash
-# users are encouraged to define aliases within the OSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias bashconfig="mate ~/.bashrc"
-# alias ohmybash="mate ~/.oh-my-bash"
 
 iatest=$(expr index "$-" i)
 
@@ -145,8 +43,6 @@ fi
 #######################################################
 # EXPORTS
 #######################################################
-
-# export BAT_THEME="Sublime Snazzy"
 
 # Disable the bell
 if [[ $iatest > 0 ]]; then bind "set bell-style visible"; fi
@@ -171,15 +67,6 @@ if [[ $iatest > 0 ]]; then bind "set completion-ignore-case on"; fi
 # Show auto-completion list automatically, without double tab
 if [[ $iatest > 0 ]]; then bind "set show-all-if-ambiguous On"; fi
 
-# Set the default editor
-# export EDITOR=nvim
-# export VISUAL=nvim
-#alias pico='edit'
-#alias spico='sedit'
-#alias nano='edit'
-#alias snano='sedit'
-#alias vim='nvim'
-
 # To have colors for ls and all grep commands such as grep, egrep and zgrep
 export CLICOLOR=1
 export LS_COLORS='no=00:fi=00:di=00;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.ogg=01;35:*.mp3=01;35:*.wav=01;35:*.xml=00;31:'
@@ -199,10 +86,7 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 #######################################################
 # GENERAL ALIAS'S
 #######################################################
-# To temporarily bypass an alias, we preceed the command with a \
-    # EG: the ls command is aliased, but to use the normal ls command you would type \ls
 
-# Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
@@ -268,7 +152,6 @@ alias li='lvim'
 alias sli='sudo lvim'
 alias firefox-esr='gtk3-nocsd firefox-esr'
 alias lutris='gtk3-nocsd lutris'
-alias bat='batcat'
 alias Logout='qdbus org.kde.ksmserver /KSMServer logout 1 0 3'
 
 # Change directory aliases
@@ -285,9 +168,6 @@ alias bd='cd "$OLDPWD"'
 # Remove a directory and all files
 alias rmd='/bin/rm  --recursive --force --verbose '
 
-# Alias's for multiple directory listing commands
-#alias l='ls' # list files
-#alias la='ls -Alh' # show hidden files
 alias le='ls -aFh --color=always' # add colors and file type extensions
 alias lx='ls -lXBh'               # sort by extension
 alias lk='ls -lSrh'               # sort by size
@@ -297,10 +177,10 @@ alias lr='ls -lRh'                # recursive ls
 alias lt='ls -ltrh'               # sort by date
 alias lm='ls -alh |more'          # pipe through 'more'
 alias lw='ls -xAh'                # wide listing format
-#alias ll='ls -Fls' # long listing format
 alias labc='ls -lap'             #alphabetical sort
 alias lf="ls -l | egrep -v '^d'" # files only
 alias ldir="ls -l | egrep '^d'"  # directories only
+
 # special listing
 alias ls='exa --icons --color=always --group-directories-first'
 alias ll='exa -halF --icons --color=always --group-directories-first'
@@ -308,6 +188,7 @@ alias la='exa -a --icons --color=always --group-directories-first'
 alias l='exa -F --icons --color=always --group-directories-first'
 alias l.='exa -a | egrep "^\."'
 alias lis='exa -1 --icons --color=always --group-directories-first'
+
 # alias chmod commands
 alias mx='chmod a+x'
 alias 000='chmod -R 000'
@@ -491,15 +372,15 @@ fi
 cd "$d"
 }
 
-#Automatically do an ls after each cd
-# cd ()
-# {
-# 	if [ -n "$1" ]; then
-# 		builtin cd "$@" && ls
-# 	else
-# 		builtin cd ~ && ls
-# 	fi
-# }
+Automatically do an ls after each cd
+cd ()
+{
+	if [ -n "$1" ]; then
+		builtin cd "$@" && ls
+	else
+		builtin cd ~ && ls
+	fi
+}
 
 # Returns the last 2 fields of the working directory
 pwdtail() {
@@ -725,37 +606,31 @@ git push
 }
 
 alias lookingglass="~/looking-glass-B5.0.1/client/build/looking-glass-client -F"
+alias cpu="grep 'cpu ' /proc/stat | awk '{usage=(\$2+\$4)*100/(\$2+\$4+\$5)} END {print usage}' | awk '{printf(\"%.1f\n\", \$1)}'"
 
 #######################################################
 # Set the ultimate amazing command prompt
 #######################################################
 
-alias cpu="grep 'cpu ' /proc/stat | awk '{usage=(\$2+\$4)*100/(\$2+\$4+\$5)} END {print usage}' | awk '{printf(\"%.1f\n\", \$1)}'"
-
 export PATH=$PATH:"$HOME/.local/bin:$HOME/.cargo/bin"
 export PATH=/usr/bin:$PATH/usr/bin/python3
-
-# Install Starship - curl -sS https://starship.rs/install.sh | sh
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
+export PATH="${PATH}:${HOME}/.local/bin/"
+export PATH="${PATH}:${HOME}/.cargo/bin"
+export OPENAI_KEY=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
 
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
-# PS1="\`curspos -n>/dev/tty\`\`[ \$BASH_LEVEL != 1 ]&&echo \"[\$BASH_LEVEL]\"\`\\t[\\w/]\\\$ "
-
-# autojump
-# [[ -s /home/msbis/.autojump/etc/profile.d/autojump.sh ]] && source /home/msbis/.autojump/etc/profile.d/autojump.sh
 . /home/msbis/.autojump/etc/profile.d/autojump.sh
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
 
 eval "$(starship init bash)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-colorscript -r
 
-export PATH="${PATH}:${HOME}/.local/bin/"
-export PATH="${PATH}:${HOME}/.cargo/bin"
-export OPENAI_KEY=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
 if [ -d "/var/lib/flatpak/exports/bin" ] ; then
     PATH="/var/lib/flatpak/exports/bin:$PATH"
 fi
 
-# source ~/.local/share/blesh/ble.sh
+colorscript -r
+# source ~/github/ble.sh/out/ble.sh 
+

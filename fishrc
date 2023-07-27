@@ -1,16 +1,13 @@
-#⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣾⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-#⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⣿⣿⣿⣿⣿⣷⣀⠀⠀⠀⠀⠀⠀⠀⠀
-#⠀⠀⠀⠀⠀⠀⠀⠀⢾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣦⡀⠀⠀⠀⠀
-#⠈⣿⣶⣤⡀⠀⠀⠀⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⡀⠀⠀
-#⠀⢹⣿⣿⣿⣷⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⠀
-#⠀⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⢸⣿⣿⣿⡀
-#⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃
-#⠀⢸⣿⣿⣿⣿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠋⠀
-#⠀⣿⣿⠿⠋⠁⠀⠀⠉⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠁⠀⠀
-#⠈⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⡿⠿⠟⠋⠉⠀⠀⠀⠀⠀
-#⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⣿⠿⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+# scirpts
+colorscript -r
 
-#################=======Fish-Shell========##################
+# app
+starship init fish | source
+fish_vi_key_bindings
+
+# paths, export, source 
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
@@ -20,20 +17,7 @@ end
 # MACHINE SPECIFIC ALIAS'S
 #######################################################
 
-# Alias's for SSH
-# alias SERVERNAME='ssh YOURWEBSITE.com -l USERNAME -p PORTNUMBERHERE'
-
-# Alias's to change the directory
 alias web='cd /var/www/html'
-
-# Alias's to mount ISO files
-# mount -o loop /home/NAMEOFISO.iso /home/ISOMOUNTDIR/
-# umount /home/NAMEOFISO.iso
-# (Both commands done as root only.)
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-# alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Edit this .bashrc file
 alias ebrc='ni ~/.bashrc'
@@ -89,13 +73,12 @@ alias evrc='edit ~/.vimrc'
 alias enrc='edit ~/.nanorc'
 alias na='nano'
 alias sna='sudo nano'
-# alias sublime='/opt/sublime_text/sublime_text %F'
 alias li='lvim'
 alias sli='sudo lvim'
 alias firefox-esr='gtk3-nocsd firefox-esr'
 alias lutris='gtk3-nocsd lutris'
-alias bat='batcat'
 alias mpv='io.mpv.Mpv'
+
 # Change directory aliases
 alias home='cd ~'
 alias cd..='cd ..'
@@ -107,10 +90,6 @@ alias .....='cd ../../../..'
 # cd into the old directory
 alias bd='cd "$OLDPWD"'
 
-# Remove a directory and all files
-# Alias's for multiple directory listing commands
-# alias l='ls' # list files
-# alias la='ls -Alh' # show hidden files
 alias le='ls -aFh --color=always' # add colors and file type extensions
 alias lx='ls -lXBh' # sort by extension
 alias lk='ls -lSrh' # sort by size
@@ -120,10 +99,10 @@ alias lr='ls -lRh' # recursive ls
 alias lt='ls -ltrh' # sort by date
 alias lm='ls -alh |more' # pipe through 'more'
 alias lw='ls -xAh' # wide listing format
-# alias ll='ls -Fls' # long listing format
 alias labc='ls -lap' #alphabetical sort
 alias lf="ls -l | egrep -v '^d'" # files only
 alias ldir="ls -l | egrep '^d'" # directories only
+
 # special
 alias ls='exa --icons --color=always --group-directories-first'
 alias ll='exa -halF --icons --color=always --group-directories-first'
@@ -131,6 +110,7 @@ alias la='exa -a --icons --color=always --group-directories-first'
 alias l='exa --icons --color=always --group-directories-first'
 alias lis='exa -1 --icons --color=always --group-directories-first'
 alias l.='exa -a | egrep "^\."'
+
 # alias chmod commands
 alias mx='chmod a+x'
 alias 000='chmod -R 000'
@@ -149,9 +129,6 @@ alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
 
 # Search files in the current folder
 alias f="find . | grep "
-
-# Count all files (recursively) in the current folder
-alias countfiles="for t in files links directories; do echo \`find . -type \${t:0:1} | wc -l\` \$t; done 2> /dev/null"
 
 # To see if a command is aliased, a file, or a built-in command
 alias checkcommand="type"
@@ -182,30 +159,7 @@ alias untar='tar -xvf'
 alias unbz2='tar -xvjf'
 alias ungz='tar -xvzf'
 
-# Show all logs in /var/log
-# alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -f1 | sed -e's/:$//g' | grep -v '[0-9]$' | xargs tail -f"
-
 # SHA1
 alias sha1='openssl sha1'
-
 alias clickpaste='sleep 3; xdotool type "$(xclip -o -selection clipboard)"'
 
-
-### config
-colorscript -r
-starship init fish | source
-fish_vi_key_bindings
-set -U fish_cursor_insert line
-set -U fish_cursor_replace_one underscore
-set -U fish_greeting
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-# export PATH="${PATH}:${HOME}/.local/bin/"
-# export PATH="${PATH}:${HOME}/.cargo/bin"
-
-# if [ -d "/var/lib/flatpak/exports/bin" ] ; then
-#     PATH="/var/lib/flatpak/exports/bin:$PATH"
-# fi
-
-# nix-user
-# if [ -e /home/msbis/.nix-profile/etc/profile.d/nix.sh ]; then . /home/msbis/.nix-profile/etc/profile.d/nix.sh; fi #
