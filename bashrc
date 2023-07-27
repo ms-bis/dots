@@ -1,4 +1,3 @@
-# general
 case $- in
     *i*) ;;
     *) return ;;
@@ -372,7 +371,7 @@ fi
 cd "$d"
 }
 
-Automatically do an ls after each cd
+# Automatically do an ls after each cd
 cd ()
 {
 	if [ -n "$1" ]; then
@@ -611,7 +610,6 @@ alias cpu="grep 'cpu ' /proc/stat | awk '{usage=(\$2+\$4)*100/(\$2+\$4+\$5)} END
 #######################################################
 # Set the ultimate amazing command prompt
 #######################################################
-
 export PATH=$PATH:"$HOME/.local/bin:$HOME/.cargo/bin"
 export PATH=/usr/bin:$PATH/usr/bin/python3
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
