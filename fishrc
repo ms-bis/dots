@@ -8,8 +8,14 @@ fish_vi_key_bindings
 # paths, export, source 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+# auto ls after cd 
+function cd
+    builtin cd $argv
+    ls
+end
 
 if status is-interactive
+
     # Commands to run in interactive sessions can go here
 end
 
