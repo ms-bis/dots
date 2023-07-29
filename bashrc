@@ -597,11 +597,11 @@ echo -n "$var"
 }
 # GitHub Titus Additions
 
-gcom() {
+gac() {
 git add .
 git commit -m "$1"
 }
-lazyg() {
+lgac() {
 git add .
 git commit -m "$1"
 git push
@@ -613,21 +613,6 @@ alias cpu="grep 'cpu ' /proc/stat | awk '{usage=(\$2+\$4)*100/(\$2+\$4+\$5)} END
 #######################################################
 # Set the ultimate amazing command prompt
 #######################################################
-export PATH=$PATH:"$HOME/.local/bin:$HOME/.cargo/bin"
-export PATH=/usr/bin:$PATH/usr/bin/python3
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
-export PATH="${PATH}:${HOME}/.local/bin/"
-export PATH="${PATH}:${HOME}/.cargo/bin"
-export OPENAI_KEY=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
-
-bind '"\e[A": history-search-backward'
-bind '"\e[B": history-search-forward'
-
-. /home/msbis/.autojump/etc/profile.d/autojump.sh
-
-eval "$(starship init bash)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
 if [ -d "/var/lib/flatpak/exports/bin" ] ; then
     PATH="/var/lib/flatpak/exports/bin:$PATH"
 fi
@@ -636,7 +621,20 @@ if [[ $- == *i* ]]; then # in interactive session
   bind 'set editing-mode vi'
 fi
 
+. /home/msbis/.autojump/etc/profile.d/autojump.sh
 colorscript -r
-# source ~/github/ble.sh/out/ble.sh 
 
+eval "$(starship init bash)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
+export PATH="${PATH}:${HOME}/.local/bin/"
+export PATH="${PATH}:${HOME}/.cargo/bin"
+export OPENAI_KEY=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
+export PATH=$PATH:"$HOME/.local/bin:$HOME/.cargo/bin"
+export PATH=/usr/bin:$PATH/usr/bin/python3
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
+
+# source ~/github/ble.sh/out/ble.sh 
 # [[ ${BLE_VERSION-} ]] && ble-attach

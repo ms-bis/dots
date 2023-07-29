@@ -19,6 +19,17 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
+function gac
+  git add .
+  git commit -m $argv[1]
+end
+
+function lgac
+  git add .
+  git commit -m $argv[1]
+  git push
+end 
+
 #######################################################
 # MACHINE SPECIFIC ALIAS'S
 #######################################################
