@@ -53,6 +53,7 @@ alias ps='ps auxf'
 alias ping='ping -c 10'
 alias less='less -R'
 alias c='clear'
+alias lg='lazygit'
 
 alias update='sudo nala update'
 alias upgrade='sudo nala upgrade'

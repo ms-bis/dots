@@ -169,5 +169,8 @@ alias ungz='tar -xvzf'
 alias sha1='openssl sha1'
 alias clickpaste='sleep 3; xdotool type "$(xclip -o -selection clipboard)"'
 
-# plugin - Fisher fzf.fish Z done GitNow autopair.fish
+# fish exclusive
+alias bcd='bettercd'
+alias bcdun='bettercd --undo'
+alias lg='lazygit'
 

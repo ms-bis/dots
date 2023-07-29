@@ -22,7 +22,7 @@ endif
 
 let g:vim_bootstrap_langs = "python"
 let g:vim_bootstrap_editor = "vim"				" nvim or vim
-let g:vim_bootstrap_theme = "catppuccin_macchiato"
+let g:vim_bootstrap_theme = "catppuccin_mocha"
 let g:vim_bootstrap_frams = "svelte"
 
 if !filereadable(vimplug_exists)
@@ -74,6 +74,7 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'mhinz/vim-startify'
 Plug 'liuchengxu/vim-which-key'
 Plug 'christoomey/vim-system-copy'
+Plug 'christoomey/vim-tmux-navigator'
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -208,7 +209,7 @@ let no_buffers_menu=1
 " Theme
 " let g:tokyonight_style = 'storm' " available: night, storm
 " let g:tokyonight_enable_italic = 1
-colorscheme catppuccin_macchiato
+colorscheme catppuccin_mocha
 
 " Better command line completion 
 set wildmenu
@@ -626,4 +627,12 @@ else
   let g:airline_symbols.linenr = ''
 endif
 autocmd FileType vim set sidescrolloff=0
+
+" cursor
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+set ttimeout
+set ttimeoutlen=1
+set ttyfast
 
