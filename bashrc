@@ -95,6 +95,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias ebrc='ni ~/.bashrc'
 alias ezrc='ni ~/.zshrc'
 alias efrc='ni ~/.config/fish/config.fish'
+alias lg='lazygit'
 
 # Show help for this .bashrc file
 alias hlp='less ~/.bashrc_help'
@@ -154,7 +155,6 @@ alias sli='sudo lvim'
 alias firefox-esr='gtk3-nocsd firefox-esr'
 alias lutris='gtk3-nocsd lutris'
 alias Logout='qdbus org.kde.ksmserver /KSMServer logout 1 0 3'
-alias lg='lazygit'
 
 # Change directory aliases
 alias home='cd ~'
@@ -185,9 +185,9 @@ alias ldir="ls -l | egrep '^d'"  # directories only
 
 # special listing
 alias ls='exa --icons --color=always --group-directories-first'
-alias ll='exa -halF --icons --color=always --group-directories-first'
+alias ll='exa -hal --icons --color=always --group-directories-first'
 alias la='exa -a --icons --color=always --group-directories-first'
-alias l='exa -F --icons --color=always --group-directories-first'
+alias l='exa --icons --color=always --group-directories-first'
 alias l.='exa -a | egrep "^\."'
 alias lis='exa -1 --icons --color=always --group-directories-first'
 
@@ -640,5 +640,3 @@ colorscript -r
 # source ~/github/ble.sh/out/ble.sh 
 
 # [[ ${BLE_VERSION-} ]] && ble-attach
-
-

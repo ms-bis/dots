@@ -24,6 +24,7 @@ end
 #######################################################
 
 alias web='cd /var/www/html'
+alias lg='lazygit'
 
 # Edit this .bashrc file
 alias ebrc='ni ~/.bashrc'
@@ -172,5 +173,3 @@ alias clickpaste='sleep 3; xdotool type "$(xclip -o -selection clipboard)"'
 # fish exclusive
 alias bcd='bettercd'
 alias bcdun='bettercd --undo'
-alias lg='lazygit'
-
