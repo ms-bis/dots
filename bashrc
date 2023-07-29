@@ -1,3 +1,5 @@
+# [[ $- == *i* ]] && source ~/github/ble.sh/out/ble.sh --noattach
+
 case $- in
     *i*) ;;
     *) return ;;
@@ -152,6 +154,7 @@ alias sli='sudo lvim'
 alias firefox-esr='gtk3-nocsd firefox-esr'
 alias lutris='gtk3-nocsd lutris'
 alias Logout='qdbus org.kde.ksmserver /KSMServer logout 1 0 3'
+alias lg='lazygit'
 
 # Change directory aliases
 alias home='cd ~'
@@ -629,6 +632,13 @@ if [ -d "/var/lib/flatpak/exports/bin" ] ; then
     PATH="/var/lib/flatpak/exports/bin:$PATH"
 fi
 
+if [[ $- == *i* ]]; then # in interactive session
+  bind 'set editing-mode vi'
+fi
+
 colorscript -r
 # source ~/github/ble.sh/out/ble.sh 
+
+# [[ ${BLE_VERSION-} ]] && ble-attach
+
 
