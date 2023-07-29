@@ -19,6 +19,10 @@ local plugins = {
     end,
   },
   {
+    "ThePrimeagen/vim-be-good",
+    event = "VeryLazy",
+  },
+  {
     "rcarriga/nvim-dap-ui",
     event = "VeryLazy",
     dependencies = "mfussenegger/nvim-dap",
@@ -84,6 +88,12 @@ local plugins = {
         "codelldb",
       }
     }
+  },
+  {
+    "nvim-tree/nvim-tree.lua",
+    opts = function()
+      return require "custom.configs.nvimtree"
+    end,
   }
 }
 
