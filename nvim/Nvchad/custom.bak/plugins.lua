@@ -1,21 +1,21 @@
 local plugins = {
   {
     "sitiom/nvim-numbertoggle",
-    lazy = false,
+    lazy = false
   },
   {
     "stevearc/dressing.nvim",
-    lazy = false,
+    lazy = false
   },
   {
     "christoomey/vim-tmux-navigator",
-    lazy = false,
+    lazy = false
   },
   {
     "ethanholz/nvim-lastplace",
     lazy = false,
     config = function()
-      require("nvim-lastplace").setup {}
+      require'nvim-lastplace'.setup{}
     end,
   },
   {
@@ -27,8 +27,8 @@ local plugins = {
     event = "VeryLazy",
     dependencies = "mfussenegger/nvim-dap",
     config = function()
-      local dap = require "dap"
-      local dapui = require "dapui"
+      local dap = require("dap")
+      local dapui = require("dapui")
       dapui.setup()
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
@@ -39,7 +39,7 @@ local plugins = {
       dap.listeners.before.event_exited["dapui_config"] = function()
         dapui.close()
       end
-    end,
+    end
   },
   {
     "jay-babu/mason-nvim-dap.nvim",
@@ -50,16 +50,16 @@ local plugins = {
     },
     opts = {
       handlers = {},
-      ensure_installed = {
+        ensure_installed = {
         "codelldb",
-      },
+      }
     },
   },
   {
     "mfussenegger/nvim-dap",
     config = function(_, _)
-      require("core.utils").load_mappings "dap"
-    end,
+      require("core.utils").load_mappings("dap")
+    end
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
@@ -70,7 +70,7 @@ local plugins = {
   },
   {
     "neovim/nvim-lspconfig",
-    config = function()
+     config = function()
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
     end,
@@ -86,8 +86,8 @@ local plugins = {
         "clangd",
         "clang-format",
         "codelldb",
-      },
-    },
+      }
+    }
   },
   {
     "nvim-tree/nvim-tree.lua",
@@ -98,9 +98,9 @@ local plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      ensure_installed = { "html", "css", "bash", "c", "cpp", "python", "fish", "toml", "lua" },
+      ensure_installed = {"html", "css", "bash", "c", "cpp", "python", "fish", "toml", "lua"},
     },
-  },
+  }
 }
 
 return plugins
