@@ -6,6 +6,18 @@ M.general = {
     ["<C-l>"] = {"<cmd> TmuxNavigateRight<CR>", "window right"},
     ["<C-j>"] = {"<cmd> TmuxNavigateDown<CR>", "window down"},
     ["<C-k>"] = {"<cmd> TmuxNavigateUp<CR>", "window up"},
+    ["<leader>tt"] = {
+      function()
+        require("base46").toggle_transparency()
+      end,
+      "toggle transparency",
+    },
+    ["<C-x>"] = {
+      function()
+        vim.cmd([[normal! "0dd]])
+      end,
+      "delete to black hole register",
+    }
   }
 }
 
