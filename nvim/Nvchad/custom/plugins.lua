@@ -94,6 +94,12 @@ local plugins = {
     opts = function()
       return require "custom.configs.nvimtree"
     end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {"html", "css", "bash", "c", "cpp", "python", "fish", "toml", "lua"},
+    },
   }
 }
 
