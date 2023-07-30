@@ -36,3 +36,17 @@ lspconfig.lua_ls.setup({
 		on_attach(client, bufnr)
 	end,
 })
+
+lspconfig.html.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+	filetypes = { "html" },
+	init_options = {
+		configurationSection = { "html", "css", "javascript" },
+		embeddedLanguages = {
+			css = true,
+			javascript = true,
+		},
+		provideFormatter = true,
+	},
+})

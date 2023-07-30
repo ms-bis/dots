@@ -14,6 +14,9 @@ local opts = {
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.diagnostics.selene,
 		null_ls.builtins.completion.spell,
+		-- html
+		null_ls.builtins.formatting.prettier,
+		null_ls.builtins.diagnostics.markuplint,
 	},
 	on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then
