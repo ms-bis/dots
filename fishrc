@@ -8,6 +8,14 @@ fish_vi_key_bindings
 # paths, export, source 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+if test -d "/var/lib/flatpak/exports/bin"
+    set -gx PATH "/var/lib/flatpak/exports/bin" $PATH
+end
+
+# exports
+set -gx VISUAL nvim
+set -gx EDITOR $VISUAL
+
 # auto ls after cd 
 function cd
     builtin cd $argv
@@ -29,9 +37,6 @@ function lgac
   git commit -m $argv[1]
   git push
 end 
-
-set -x VISUAL nvim
-set -x EDITOR $VISUAL
 
 #######################################################
 # MACHINE SPECIFIC ALIAS'S
