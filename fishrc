@@ -30,6 +30,9 @@ function lgac
   git push
 end 
 
+set -x VISUAL nvim
+set -x EDITOR $VISUAL
+
 #######################################################
 # MACHINE SPECIFIC ALIAS'S
 #######################################################

@@ -629,6 +629,8 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
+export VISUAL=nvim
+export EDITOR="$VISUAL"
 export PATH="${PATH}:${HOME}/.local/bin/"
 export PATH="${PATH}:${HOME}/.cargo/bin"
 export OPENAI_KEY=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
