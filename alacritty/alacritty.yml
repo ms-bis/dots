@@ -66,7 +66,7 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background and no title bar buttons
-  decorations: full
+  # decorations: full
 
   # Background opacity
   #
@@ -86,7 +86,7 @@ window:
   #startup_mode: Windowed
 
   # Window title
-  #title: Alacritty
+  title: Alacritty
 
   # Allow terminal applications to change Alacritty's window title.
   #dynamic_title: true
@@ -116,7 +116,7 @@ window:
 font:
   # Normal (roman) font face
   normal:
-    family: JetBrains Mono Nerd Font
+    family: JetBrainsMono Nerd Font
     style: Bold
     # Font family
     #
@@ -131,7 +131,7 @@ font:
 
   # Bold font face
   bold:
-    family: JetBrains Mono Nerd Font
+    family: JetBrainsMono Nerd Font
     style: Bold
     # Font family
     #
@@ -144,7 +144,7 @@ font:
 
   # Italic font face
   italic:
-    family: JetBrains Mono Nerd Font
+    family: JetBrainsMono Nerd Font
     style: Bold Italic
     # Font family
     #
@@ -157,7 +157,7 @@ font:
 
   # Bold italic font face
   bold_italic:
-    family: JetBrains Mono Nerd Font
+    family: JetBrainsMono Nerd Font
     style: Bold Italic
     # Font family
     #
@@ -403,7 +403,7 @@ cursor:
     #   - ▇ Block
     #   - _ Underline
     #   - | Beam
-    shape: underline
+    shape: Beam
 
     # Cursor blinking state
     #

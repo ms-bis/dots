@@ -85,7 +85,6 @@ alias multitail='multitail --no-repeat -c'
 alias freshclam='sudo freshclam'
 
 alias kitty='LIBGL_ALWAYS_SOFTWARE=true GALLIUM_DRIVER=llvmpipe kitty'
-alias alacritty='LIBGL_ALWAYS_SOFTWARE=1 alacritty'
 alias gtc='git clone'
 
 alias colorscheme='bash -c "$(wget -qO- https://git.io/vQgMr)"'
