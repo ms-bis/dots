@@ -13,6 +13,29 @@ M.general = {
 			end,
 			"toggle transparency",
 		},
+		["<leader>cr"] = {
+			function()
+				local current_file = vim.fn.expand("%")
+				local current_file_directory = vim.fn.expand("%:p:h")
+				local file_name = vim.fn.expand("%:t:r")
+				require("nvterm.terminal").send(
+					"cd "
+						.. current_file_directory
+						.. " && "
+						.. "clang++ --debug "
+						.. current_file
+						.. " -o "
+						.. file_name
+						.. " && "
+						.. current_file_directory
+						.. "/"
+						.. file_name,
+					"horizontal"
+				)
+				vim.cmd(":wincmd j")
+			end,
+			"Compile and run current C++ file in a vertical split",
+		},
 		["<C-x>"] = {
 			function()
 				vim.cmd([[normal! "0dd]])
