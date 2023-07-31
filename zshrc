@@ -119,7 +119,7 @@ alias lf="ls -l | egrep -v '^d'" # files only
 alias ldir="ls -l | egrep '^d'" # directories only
 
 # special
-alias ls='exa --icons --color=always --group-directories-first'
+alias ls='exa -hl --icons --color=always --group-directories-first'
 alias ll='exa -halF --icons --color=always --group-directories-first'
 alias la='exa -a --icons --color=always --group-directories-first'
 alias l='exa --icons --color=always --group-directories-first'
@@ -315,9 +315,9 @@ cd "$d"
 cd ()
 {
 	if [ -n "$1" ]; then
-		builtin cd "$@" && ls
+		builtin cd "$@" && l
 	else
-		builtin cd ~ && ls
+		builtin cd ~ && l
 	fi
 }
 
