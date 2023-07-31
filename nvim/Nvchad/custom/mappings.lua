@@ -34,7 +34,7 @@ M.general = {
 				)
 				vim.cmd(":wincmd j")
 			end,
-			"Compile and run current C++ file in a vertical split",
+			"Compile and run c++",
 		},
 		["<C-x>"] = {
 			function()
