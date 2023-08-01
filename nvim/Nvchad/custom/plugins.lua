@@ -76,7 +76,7 @@ local plugins = {
 	},
 	{
 		"jose-elias-alvarez/null-ls.nvim",
-		ft = "python",
+		-- ft = "python",
 		event = "VeryLazy",
 		opts = function()
 			return require("custom.configs.null-ls")
