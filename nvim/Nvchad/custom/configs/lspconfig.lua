@@ -22,11 +22,11 @@ lspconfig.lua_ls.setup({
 	capabilities = capabilities,
 	settings = {
 		Lua = {
-			runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
+			-- runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
 			completion = { enable = true, callSnippet = "Both" },
 			diagnostics = {
 				enable = true,
-				globals = { "vim", "describe" },
+				globals = { "vim" },
 				disable = { "lowercase-global" },
 			},
 		},

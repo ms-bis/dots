@@ -27,7 +27,9 @@ M.general = {
 						.. " -o "
 						.. file_name
 				)
-				vim.cmd(":vsplit | terminal" .. current_file_directory .. "/" .. file_name)
+				vim.cmd(
+					":vsplit | wincmd < | vertical resize 75 | terminal" .. current_file_directory .. "/" .. file_name
+				)
 				-- require("nvterm.terminal").send(
 				-- 	"cd "
 				-- 		.. current_file_directory
@@ -60,7 +62,9 @@ M.general = {
 						.. " -o "
 						.. file_name
 				)
-				vim.cmd(":vsplit | terminal" .. current_file_directory .. "/" .. file_name)
+				vim.cmd(
+					":vsplit | wincmd < | vertical resize 75 | terminal" .. current_file_directory .. "/" .. file_name
+				)
 			end,
 			"Compile and run c",
 		},
