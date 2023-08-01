@@ -1,5 +1,20 @@
 local M = {}
 
+local function compile_and_run()
+	local current_file = vim.fn.expand("%")
+	local current_file_directory = vim.fn.expand("%:p:h")
+	local file_name = vim.fn.expand("%:t:r")
+	if vim.bo.filetype == "c" then
+		vim.cmd("!cd " .. current_file_directory .. " && clang --debug " .. current_file .. " -o " .. file_name)
+	elseif vim.bo.filetype == "cpp" then
+		vim.cmd("!cd " .. current_file_directory .. " && clang++ --debug " .. current_file .. " -o " .. file_name)
+	else
+		print("Unsupported file type for compilation and running.")
+		return
+	end
+	vim.cmd(":vsplit | wincmd < | vertical resize 75 | terminal " .. current_file_directory .. "/" .. file_name)
+end
+
 M.general = {
 	n = {
 		["<C-h>"] = { "<cmd> TmuxNavigateLeft<CR>", "window left" },
@@ -7,67 +22,68 @@ M.general = {
 		["<C-j>"] = { "<cmd> TmuxNavigateDown<CR>", "window down" },
 		["<C-k>"] = { "<cmd> TmuxNavigateUp<CR>", "window up" },
 		["<leader>mm"] = { "<cmd> Mason<CR>", "Mason" },
+		["<F5>"] = { compile_and_run, "Compile and run" },
 		["<leader>tt"] = {
 			function()
 				require("base46").toggle_transparency()
 			end,
 			"toggle transparency",
 		},
-		["<leader>cr"] = {
-			function()
-				local current_file = vim.fn.expand("%")
-				local current_file_directory = vim.fn.expand("%:p:h")
-				local file_name = vim.fn.expand("%:t:r")
-				vim.cmd(
-					"!cd "
-						.. current_file_directory
-						.. " && "
-						.. "clang++ --debug "
-						.. current_file
-						.. " -o "
-						.. file_name
-				)
-				vim.cmd(
-					":vsplit | wincmd < | vertical resize 75 | terminal" .. current_file_directory .. "/" .. file_name
-				)
-				-- require("nvterm.terminal").send(
-				-- 	"cd "
-				-- 		.. current_file_directory
-				-- 		.. " && "
-				-- 		.. "clang++ --debug "
-				-- 		.. current_file
-				-- 		.. " -o "
-				-- 		.. file_name
-				-- 		.. " && "
-				-- 		.. current_file_directory
-				-- 		.. "/"
-				-- 		.. file_name,
-				-- 	"horizontal"
-				-- )
-				-- vim.cmd(":wincmd j")
-			end,
-			"Compile and run c++",
-		},
-		["<leader>cR"] = {
-			function()
-				local current_file = vim.fn.expand("%")
-				local current_file_directory = vim.fn.expand("%:p:h")
-				local file_name = vim.fn.expand("%:t:r")
-				vim.cmd(
-					"!cd "
-						.. current_file_directory
-						.. " && "
-						.. "clang --debug "
-						.. current_file
-						.. " -o "
-						.. file_name
-				)
-				vim.cmd(
-					":vsplit | wincmd < | vertical resize 75 | terminal" .. current_file_directory .. "/" .. file_name
-				)
-			end,
-			"Compile and run c",
-		},
+		-- ["<leader>cr"] = {
+		-- 	function()
+		-- 		local current_file = vim.fn.expand("%")
+		-- 		local current_file_directory = vim.fn.expand("%:p:h")
+		-- 		local file_name = vim.fn.expand("%:t:r")
+		-- 		vim.cmd(
+		-- 			"!cd "
+		-- 				.. current_file_directory
+		-- 				.. " && "
+		-- 				.. "clang++ --debug "
+		-- 				.. current_file
+		-- 				.. " -o "
+		-- 				.. file_name
+		-- 		)
+		-- 		vim.cmd(
+		-- 			":vsplit | wincmd < | vertical resize 75 | terminal" .. current_file_directory .. "/" .. file_name
+		-- 		)
+		-- require("nvterm.terminal").send(
+		-- 	"cd "
+		-- 		.. current_file_directory
+		-- 		.. " && "
+		-- 		.. "clang++ --debug "
+		-- 		.. current_file
+		-- 		.. " -o "
+		-- 		.. file_name
+		-- 		.. " && "
+		-- 		.. current_file_directory
+		-- 		.. "/"
+		-- 		.. file_name,
+		-- 	"horizontal"
+		-- )
+		-- vim.cmd(":wincmd j")
+		-- 	end,
+		-- 	"Compile and run c++",
+		-- },
+		-- ["<leader>cR"] = {
+		-- 	function()
+		-- 		local current_file = vim.fn.expand("%")
+		-- 		local current_file_directory = vim.fn.expand("%:p:h")
+		-- 		local file_name = vim.fn.expand("%:t:r")
+		-- 		vim.cmd(
+		-- 			"!cd "
+		-- 				.. current_file_directory
+		-- 				.. " && "
+		-- 				.. "clang --debug "
+		-- 				.. current_file
+		-- 				.. " -o "
+		-- 				.. file_name
+		-- 		)
+		-- 		vim.cmd(
+		-- 			":vsplit | wincmd < | vertical resize 75 | terminal" .. current_file_directory .. "/" .. file_name
+		-- 		)
+		-- 	end,
+		-- 	"Compile and run c",
+		--		},
 		["<A-H>"] = {
 			function()
 				local current_file_directory = vim.fn.expand("%:p:h")
