@@ -1,0 +1,18 @@
+{
+    "workspace.library": [
+        "/home/msbis/.config/nvim",
+        "/home/msbis/.local/share/nvim/lazy/lazy.nvim",
+        "/home/msbis/.local/share/nvim/lazy/nvim-lspconfig",
+        "/home/msbis/.local/share/nvim/lazy/nvim-colorizer.lua",
+        "/home/msbis/.local/share/nvim/lazy/nvim-web-devicons",
+        "/home/msbis/.local/share/nvim/lazy/nvim-treesitter",
+        "/home/msbis/.local/share/nvim/lazy/ui",
+        "/home/msbis/.local/share/nvim/lazy/dressing.nvim",
+        "/home/msbis/.local/share/nvim/lazy/nvim-lastplace",
+        "/home/msbis/.local/share/nvim/lazy/vim-tmux-navigator",
+        "/home/msbis/.local/share/nvim/lazy/nvim-numbertoggle",
+        "/usr/share/nvim/runtime",
+        "/home/msbis/.local/state/nvim/lazy/readme",
+        "${3rd}/luassert/library"
+    ]
+}

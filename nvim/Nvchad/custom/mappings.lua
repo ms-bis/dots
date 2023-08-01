@@ -68,7 +68,14 @@ M.general = {
 			end,
 			"Compile and run c",
 		},
-
+		["<A-H>"] = {
+			function()
+				local current_file_directory = vim.fn.expand("%:p:h")
+				require("nvterm.terminal").send("cd " .. current_file_directory, "horizontal")
+				vim.cmd(":wincmd j")
+			end,
+			"Toggle horizontal term",
+		},
 		["<C-x>"] = {
 			function()
 				vim.cmd([[normal! "0dd]])
