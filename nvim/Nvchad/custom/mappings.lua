@@ -39,6 +39,10 @@ M.general = {
 			end,
 			"toggle transparency",
 		},
+		["<leader>at"] = { "<cmd> AerialToggle<CR>, Aerial Toggle" },
+		["<leader>an"] = { "<cmd> AerialNext<CR>, Aerial next" },
+		["<leader>ap"] = { "<cmd> AerialPrev<CR>, Aerial previous" },
+
 		-- ["<leader>cr"] = {
 		-- 	function()
 		-- 		local current_file = vim.fn.expand("%")
