@@ -1,6 +1,5 @@
 local M = {}
 
--- Function to compile and run the file based on its type
 local function compile_and_run()
 	-- local current_file = vim.fn.expand("%")
 	local current_file_directory = vim.fn.expand("%:p:h") -- current file directory
