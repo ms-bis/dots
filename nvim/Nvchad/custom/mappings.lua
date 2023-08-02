@@ -1,20 +1,70 @@
 local M = {}
 
+-- Function to compile and run the file based on its type
 local function compile_and_run()
-	local current_file = vim.fn.expand("%")
-	local current_file_directory = vim.fn.expand("%:p:h")
-	local file_name = vim.fn.expand("%:t:r")
+	-- local current_file = vim.fn.expand("%")
+	local current_file_directory = vim.fn.expand("%:p:h") -- current file directory
+	local file_name = vim.fn.expand("%:t:r") -- current file name without extension
+	local file_name_exe = vim.fn.expand("%:t") -- cureent file name with .exetension
+
 	vim.cmd(":w")
+
 	if vim.bo.filetype == "c" then
-		vim.cmd("!cd " .. current_file_directory .. " && clang --debug " .. current_file .. " -o " .. file_name)
+		vim.cmd(
+			":vsplit | wincmd < | vertical resize 75 | terminal"
+				.. "!cd "
+				.. current_file_directory
+				.. " && clang --debug "
+				.. file_name_exe
+				.. " -o "
+				.. file_name
+				.. " && "
+				.. current_file_directory
+				.. "/"
+				.. file_name
+		)
 	elseif vim.bo.filetype == "cpp" then
-		vim.cmd("!cd " .. current_file_directory .. " && clang++ --debug " .. current_file .. " -o " .. file_name)
+		vim.cmd(
+			":vsplit | wincmd < | vertical resize 75 | terminal"
+				.. "!cd "
+				.. current_file_directory
+				.. " && clang++ --debug "
+				.. file_name_exe
+				.. " -o "
+				.. file_name
+				.. " && "
+				.. current_file_directory
+				.. "/"
+				.. file_name
+		)
+	elseif vim.bo.filetype == "python" then
+		vim.cmd(
+			":vsplit | wincmd < | vertical resize 75 | terminal"
+				.. "!cd "
+				.. current_file_directory
+				.. " && python "
+				.. file_name_exe
+		)
 	else
 		print("Unsupported file type for compilation and running.")
 		return
 	end
-	vim.cmd(":vsplit | wincmd < | vertical resize 75 | terminal " .. current_file_directory .. "/" .. file_name)
+	-- vim.cmd(":vsplit | wincmd < | vertical resize 75 | terminal " .. current_file_directory .. "/" .. file_name)
 end
+-- require("nvterm.terminal").send(
+-- 	"cd "
+-- 		.. current_file_directory
+-- 		.. " && "
+-- 		.. "clang --debug "
+-- 		.. file_name_exe
+-- 		.. " -o "
+-- 		.. file_name
+-- 		.. " && "
+-- 		.. current_file_directory
+-- 		.. "/"
+-- 		.. file_name,
+-- 	"horizontal"
+-- )
 
 -- Autocommands to set filetypes for C and C++ files
 vim.cmd([[
@@ -22,6 +72,7 @@ vim.cmd([[
         autocmd!
         autocmd BufNewFile,BufRead *.c set filetype=c
         autocmd BufNewFile,BufRead *.cpp set filetype=cpp
+        autocmd BufNewFile,BufRead *.py set filetype=python
     augroup END
 ]])
 
@@ -39,62 +90,10 @@ M.general = {
 			end,
 			"toggle transparency",
 		},
-		-- ["<leader>cr"] = {
-		-- 	function()
-		-- 		local current_file = vim.fn.expand("%")
-		-- 		local current_file_directory = vim.fn.expand("%:p:h")
-		-- 		local file_name = vim.fn.expand("%:t:r")
-		-- 		vim.cmd(
-		-- 			"!cd "
-		-- 				.. current_file_directory
-		-- 				.. " && "
-		-- 				.. "clang++ --debug "
-		-- 				.. current_file
-		-- 				.. " -o "
-		-- 				.. file_name
-		-- 		)
-		-- 		vim.cmd(
-		-- 			":vsplit | wincmd < | vertical resize 75 | terminal" .. current_file_directory .. "/" .. file_name
-		-- 		)
-		-- require("nvterm.terminal").send(
-		-- 	"cd "
-		-- 		.. current_file_directory
-		-- 		.. " && "
-		-- 		.. "clang++ --debug "
-		-- 		.. current_file
-		-- 		.. " -o "
-		-- 		.. file_name
-		-- 		.. " && "
-		-- 		.. current_file_directory
-		-- 		.. "/"
-		-- 		.. file_name,
-		-- 	"horizontal"
-		-- )
-		-- vim.cmd(":wincmd j")
-		-- 	end,
-		-- 	"Compile and run c++",
-		-- },
-		-- ["<leader>cR"] = {
-		-- 	function()
-		-- 		local current_file = vim.fn.expand("%")
-		-- 		local current_file_directory = vim.fn.expand("%:p:h")
-		-- 		local file_name = vim.fn.expand("%:t:r")
-		-- 		vim.cmd(
-		-- 			"!cd "
-		-- 				.. current_file_directory
-		-- 				.. " && "
-		-- 				.. "clang --debug "
-		-- 				.. current_file
-		-- 				.. " -o "
-		-- 				.. file_name
-		-- 		)
-		-- 		vim.cmd(
-		-- 			":vsplit | wincmd < | vertical resize 75 | terminal" .. current_file_directory .. "/" .. file_name
-		-- 		)
-		-- 	end,
-		-- 	"Compile and run c",
-		--		},
-		["<A-H>"] = {
+		["<leader>at"] = { "<cmd> AerialToggle<CR>, Aerial Toggle" },
+		["<leader>an"] = { "<cmd> AerialNext<CR>, Aerial next" },
+		["<leader>ap"] = { "<cmd> AerialPrev<CR>, Aerial previous" },
+		["<C-H>"] = {
 			function()
 				local current_file_directory = vim.fn.expand("%:p:h")
 				require("nvterm.terminal").send("cd " .. current_file_directory, "horizontal")

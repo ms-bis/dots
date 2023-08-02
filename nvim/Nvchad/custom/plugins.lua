@@ -116,6 +116,16 @@ local plugins = {
 		},
 	},
 	{
+		"stevearc/aerial.nvim",
+		event = "VeryLazy",
+		opts = {},
+		-- Optional dependencies
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+	},
+	{
 		"nvim-tree/nvim-tree.lua",
 		opts = function()
 			return require("custom.configs.nvimtree")

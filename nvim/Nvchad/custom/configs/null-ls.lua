@@ -13,6 +13,7 @@ local opts = {
 		-- lua
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.diagnostics.selene,
+		-- null_ls.builtins.diagnostics.luacheck,
 		null_ls.builtins.completion.spell,
 		-- html
 		null_ls.builtins.formatting.prettier,
