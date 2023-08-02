@@ -4,16 +4,41 @@ local function compile_and_run()
 	local current_file = vim.fn.expand("%")
 	local current_file_directory = vim.fn.expand("%:p:h")
 	local file_name = vim.fn.expand("%:t:r")
+
 	vim.cmd(":w")
+
 	if vim.bo.filetype == "c" then
-		vim.cmd("!cd " .. current_file_directory .. " && clang --debug " .. current_file .. " -o " .. file_name)
+		vim.cmd(
+			":vsplit | wincmd < | vertical resize 80 | terminal"
+				.. "!cd "
+				.. current_file_directory
+				.. " && clang --debug "
+				.. current_file
+				.. " -o "
+				.. file_name
+				.. " && "
+				.. current_file_directory
+				.. "/"
+				.. file_name
+		)
 	elseif vim.bo.filetype == "cpp" then
-		vim.cmd("!cd " .. current_file_directory .. " && clang++ --debug " .. current_file .. " -o " .. file_name)
+		vim.cmd(
+			":vsplit | wincmd < | vertical resize 80 | terminal"
+				.. "!cd "
+				.. current_file_directory
+				.. " && clang++ --debug "
+				.. current_file
+				.. " -o "
+				.. file_name
+				.. " && "
+				.. current_file_directory
+				.. "/"
+				.. file_name
+		)
 	else
 		print("Unsupported file type for compilation and running.")
 		return
 	end
-	vim.cmd(":vsplit | wincmd < | vertical resize 75 | terminal " .. current_file_directory .. "/" .. file_name)
 end
 
 -- Autocommands to set filetypes for C and C++ files
