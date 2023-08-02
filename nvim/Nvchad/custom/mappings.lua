@@ -49,7 +49,6 @@ local function compile_and_run()
 		print("Unsupported file type for compilation and running.")
 		return
 	end
-	-- vim.cmd(":vsplit | wincmd < | vertical resize 75 | terminal " .. current_file_directory .. "/" .. file_name)
 end
 -- require("nvterm.terminal").send(
 -- 	"cd "
