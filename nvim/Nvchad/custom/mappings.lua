@@ -1,7 +1,7 @@
 local M = {}
 
 local function compile_and_run()
-	-- local current_file = vim.fn.expand("%")
+	local current_file = vim.fn.expand("%")
 	local current_file_directory = vim.fn.expand("%:p:h") -- current file directory
 	local file_name = vim.fn.expand("%:t:r") -- current file name without extension
 	local file_name_exe = vim.fn.expand("%:t") -- cureent file name with .exetension
@@ -44,6 +44,9 @@ local function compile_and_run()
 				.. " && python "
 				.. file_name_exe
 		)
+	elseif vim.bo.filetype == "html" then
+		vim.cmd("!xdg-open " .. current_file)
+		vim.cmd(":vsplit | wincmd < | vertical resize 75 | terminal" .. "!lynx -dump " .. current_file)
 	else
 		print("Unsupported file type for compilation and running.")
 		return
@@ -71,6 +74,7 @@ vim.cmd([[
         autocmd BufNewFile,BufRead *.c set filetype=c
         autocmd BufNewFile,BufRead *.cpp set filetype=cpp
         autocmd BufNewFile,BufRead *.py set filetype=python
+        autocmd BufNewFile,BufRead *.html set filetype=html
     augroup END
 ]])
 
@@ -91,7 +95,7 @@ M.general = {
 		["<leader>at"] = { "<cmd> AerialToggle<CR>, Aerial Toggle" },
 		["<leader>an"] = { "<cmd> AerialNext<CR>, Aerial next" },
 		["<leader>ap"] = { "<cmd> AerialPrev<CR>, Aerial previous" },
-		["<C-H>"] = {
+		["<leader>tc"] = {
 			function()
 				local current_file_directory = vim.fn.expand("%:p:h")
 				require("nvterm.terminal").send("cd " .. current_file_directory, "horizontal")
