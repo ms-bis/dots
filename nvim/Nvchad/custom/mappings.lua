@@ -4,6 +4,7 @@ local function compile_and_run()
 	local current_file = vim.fn.expand("%")
 	local current_file_directory = vim.fn.expand("%:p:h")
 	local file_name = vim.fn.expand("%:t:r")
+	vim.cmd(":w")
 	if vim.bo.filetype == "c" then
 		vim.cmd("!cd " .. current_file_directory .. " && clang --debug " .. current_file .. " -o " .. file_name)
 	elseif vim.bo.filetype == "cpp" then
@@ -14,6 +15,15 @@ local function compile_and_run()
 	end
 	vim.cmd(":vsplit | wincmd < | vertical resize 75 | terminal " .. current_file_directory .. "/" .. file_name)
 end
+
+-- Autocommands to set filetypes for C and C++ files
+vim.cmd([[
+    augroup NvchadFileType
+        autocmd!
+        autocmd BufNewFile,BufRead *.c set filetype=c
+        autocmd BufNewFile,BufRead *.cpp set filetype=cpp
+    augroup END
+]])
 
 M.general = {
 	n = {
