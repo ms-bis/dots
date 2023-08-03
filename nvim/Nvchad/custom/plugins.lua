@@ -119,7 +119,6 @@ local plugins = {
 		"stevearc/aerial.nvim",
 		event = "VeryLazy",
 		opts = {},
-		-- Optional dependencies
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-tree/nvim-web-devicons",
@@ -127,9 +126,8 @@ local plugins = {
 	},
 	{
 		"barrett-ruth/live-server.nvim",
+		ft = "html",
 		event = "VeryLazy",
-		-- build = "yarn global add live-server",
-		-- config = true,
 		config = function(_, opts)
 			require("live-server").setup(opts)
 		end,
