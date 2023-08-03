@@ -9,7 +9,7 @@ local plugins = {
 	},
 	{
 		"christoomey/vim-tmux-navigator",
-		lazy = false,
+		event = "VeryLazy",
 	},
 	{
 		"ethanholz/nvim-lastplace",
@@ -124,6 +124,15 @@ local plugins = {
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-tree/nvim-web-devicons",
 		},
+	},
+	{
+		"barrett-ruth/live-server.nvim",
+		event = "VeryLazy",
+		-- build = "yarn global add live-server",
+		-- config = true,
+		config = function(_, opts)
+			require("live-server").setup(opts)
+		end,
 	},
 	{
 		"nvim-tree/nvim-tree.lua",

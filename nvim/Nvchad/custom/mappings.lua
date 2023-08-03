@@ -1,7 +1,7 @@
 local M = {}
 
 local function compile_and_run()
-	local current_file = vim.fn.expand("%")
+	-- local current_file = vim.fn.expand("%")
 	local current_file_directory = vim.fn.expand("%:p:h") -- current file directory
 	local file_name = vim.fn.expand("%:t:r") -- current file name without extension
 	local file_name_exe = vim.fn.expand("%:t") -- cureent file name with .exetension
@@ -10,7 +10,7 @@ local function compile_and_run()
 
 	if vim.bo.filetype == "c" then
 		vim.cmd(
-			":vsplit | wincmd < | vertical resize 75 | terminal"
+			":vsplit | wincmd < | vertical resize 100 | terminal"
 				.. "!cd "
 				.. current_file_directory
 				.. " && clang --debug "
@@ -24,7 +24,7 @@ local function compile_and_run()
 		)
 	elseif vim.bo.filetype == "cpp" then
 		vim.cmd(
-			":vsplit | wincmd < | vertical resize 75 | terminal"
+			":vsplit | wincmd < | vertical resize 100 | terminal"
 				.. "!cd "
 				.. current_file_directory
 				.. " && clang++ --debug "
@@ -38,34 +38,19 @@ local function compile_and_run()
 		)
 	elseif vim.bo.filetype == "python" then
 		vim.cmd(
-			":vsplit | wincmd < | vertical resize 75 | terminal"
+			":vsplit | wincmd < | vertical resize 100 | terminal"
 				.. "!cd "
 				.. current_file_directory
 				.. " && python "
 				.. file_name_exe
 		)
 	elseif vim.bo.filetype == "html" then
-		vim.cmd("!xdg-open " .. current_file)
-		vim.cmd(":vsplit | wincmd < | vertical resize 75 | terminal" .. "!lynx -dump " .. current_file)
+		vim.cmd(":LiveServerStart")
 	else
 		print("Unsupported file type for compilation and running.")
 		return
 	end
 end
--- require("nvterm.terminal").send(
--- 	"cd "
--- 		.. current_file_directory
--- 		.. " && "
--- 		.. "clang --debug "
--- 		.. file_name_exe
--- 		.. " -o "
--- 		.. file_name
--- 		.. " && "
--- 		.. current_file_directory
--- 		.. "/"
--- 		.. file_name,
--- 	"horizontal"
--- )
 
 -- Autocommands to set filetypes for C and C++ files
 vim.cmd([[
@@ -101,7 +86,7 @@ M.general = {
 				require("nvterm.terminal").send("cd " .. current_file_directory, "horizontal")
 				vim.cmd(":wincmd j")
 			end,
-			"Toggle horizontal term",
+			"Toggle terminal to current files directory",
 		},
 		["<C-x>"] = {
 			function()
