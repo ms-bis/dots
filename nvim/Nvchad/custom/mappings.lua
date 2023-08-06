@@ -10,21 +10,21 @@ local function compile_and_run()
 
 	if vim.bo.filetype == "c" then
 		vim.cmd(
-			":vsplit | wincmd < | vertical resize 100 | terminal"
+			":split | wincmd < | horizontal resize 12 | terminal"
 				.. "!cd "
 				.. current_file_directory
 				.. " && clang --debug "
 				.. file_name_exe
 				.. " -o "
 				.. file_name
-				.. " && "
+				.. " -lm && "
 				.. current_file_directory
 				.. "/"
 				.. file_name
 		)
 	elseif vim.bo.filetype == "cpp" then
 		vim.cmd(
-			":vsplit | wincmd < | vertical resize 100 | terminal"
+			":split | wincmd < | horizontal resize 12 | terminal"
 				.. "!cd "
 				.. current_file_directory
 				.. " && clang++ --debug "
@@ -38,7 +38,7 @@ local function compile_and_run()
 		)
 	elseif vim.bo.filetype == "python" then
 		vim.cmd(
-			":vsplit | wincmd < | vertical resize 100 | terminal"
+			":split | wincmd < | horizontal resize 12 | terminal"
 				.. "!cd "
 				.. current_file_directory
 				.. " && python "
