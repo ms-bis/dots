@@ -16,6 +16,15 @@ end
 set -gx VISUAL nvim
 set -gx EDITOR $VISUAL
 
+# Add directories to the PATH
+set -x PATH $PATH ~/.local/bin/ ~/.cargo/bin
+
+# Set the OpenAI key
+set -x OPENAI_KEY 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
+
+# Add Python executable path to PATH
+set -x PATH /usr/bin $PATH /usr/bin/python3
+
 # auto ls after cd 
 function cd
     builtin cd $argv
