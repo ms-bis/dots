@@ -631,11 +631,10 @@ bind '"\e[B": history-search-forward'
 
 export VISUAL=nvim
 export EDITOR="$VISUAL"
-export PATH="${PATH}:${HOME}/.local/bin/"
-export PATH="${PATH}:${HOME}/.cargo/bin"
-export OPENAI_KEY=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
+
 export PATH=$PATH:"$HOME/.local/bin:$HOME/.cargo/bin"
 export PATH=/usr/bin:$PATH/usr/bin/python3
+export OPENAI_KEY=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
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
 
 # source ~/github/ble.sh/out/ble.sh 
