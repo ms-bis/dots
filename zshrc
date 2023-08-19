@@ -1,19 +1,35 @@
-# paths 
-export ZSH="$HOME/.oh-my-zsh"
+# zsh-fix
+fpath=(~/.zsh/completion /usr/local/share/zsh/site-functions /usr/share/zsh/site-functions /usr/share/zsh/5.9/functions)
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
+# paths 
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+export export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export PATH=$PATH:/home/msbis/.spicetify
+export ZSH="$HOME/.oh-my-zsh"
+export PATH=/usr/bin:$PATH/usr/bin/python3
 export PATH="${PATH}:${HOME}/.local/bin/"
 export PATH="${PATH}:${HOME}/.cargo/bin"
-
 export OPENAI_KEY=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
+# export BAT_THEME="gruvbox-dark"
+
+# history setup
+setopt SHARE_HISTORY
+HISTFILE=$HOME/.zhistory
+SAVEHIST=1000
+HISTSIZE=999
+setopt HIST_EXPIRE_DUPS_FIRST
+
+bindkey '\e[A' history-search-backward
+bindkey '\e[B' history-search-forward
 
 # apps
 eval "$(starship init zsh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
 if [ -d "/var/lib/flatpak/exports/bin" ] ; then
     PATH="/var/lib/flatpak/exports/bin:$PATH"
 fi
-
 if [ -e /home/msbis/.nix-profile/etc/profile.d/nix.sh ]; then . /home/msbis/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 # scripts
@@ -21,7 +37,15 @@ colorscript -r
 
 # ZSH_THEME="robbyrussell"
 
-plugins=( git z zsh-autosuggestions zsh-syntax-highlighting web-search vi-mode fzf-tab command-not-found fast-syntax-highlighting )
+# Basic auto/tab complete:
+autoload -U compinit
+zstyle ':completion:*' menu select
+zmodload zsh/complist
+compinit
+autoload -Uz compinit && compinit
+_comp_options+=(globdots)		# Include hidden files.
+
+plugins=( git z zsh-autosuggestions zsh-syntax-highlighting web-search zsh-vi-mode command-not-found fzf fzf-tab zsh-completions ) # fast-syntax-highlighting zsh-autocomplete 
 
 # sources
 source $ZSH/oh-my-zsh.sh
@@ -29,7 +53,6 @@ source $ZSH/oh-my-zsh.sh
 #######################################################
 # MACHINE SPECIFIC ALIAS'S
 #######################################################
-
 # Alias's to change the directory
 alias web='cd /var/www/html'
 
@@ -54,46 +77,17 @@ alias ping='ping -c 10'
 alias less='less -R'
 alias c='clear'
 alias lg='lazygit'
-
-alias update='sudo nala update'
-alias upgrade='sudo nala upgrade'
-alias .apt='sudo nala'
-alias s.apt='sudo nala search'
-alias i.apt='sudo nala install'
-alias r.apt='sudo nala remove'
-#alias sug='--install-suggests'
-alias s.fpk='flatpak search'
-alias i.fpk='flatpak install'
-alias r.fpk='flatpak remove'
-alias s.snp='snap search'
-alias i.snp='snap install'
-alias r.snp='snap remove'
-alias r.plasma='kwin_x11 --replace; plasmashell --replace'
-
 alias multitail='multitail --no-repeat -c'
 alias freshclam='sudo freshclam'
-
-alias kitty='LIBGL_ALWAYS_SOFTWARE=true GALLIUM_DRIVER=llvmpipe kitty'
-alias alacritty='LIBGL_ALWAYS_SOFTWARE=1 alacritty'
 alias gtc='git clone'
-
 alias colorscheme='bash -c "$(wget -qO- https://git.io/vQgMr)"'
-alias svi='sudo vim'
-alias vis='nvim "+set si"'
 alias grep='grep --color=auto'
 alias ni='nvim'
-alias sni='sudo nvim'
 alias update-grub='sudo grub2-mkconfig -o "$(readlink -e /etc/grub2.cfg)"'
 alias evrc='edit ~/.vimrc'
 alias enrc='edit ~/.nanorc'
-alias na='nano'
-alias sna='sudo nano'
-# alias sublime='/opt/sublime_text/sublime_text %F'
-alias li='lvim'
-alias sli='sudo lvim'
-alias firefox-esr='gtk3-nocsd firefox-esr'
-alias lutris='gtk3-nocsd lutris'
-alias mpv='io.mpv.Mpv'
+alias Logout='qdbus org.kde.ksmserver /KSMServer logout 1 0 3'
+
 # Change directory aliases
 alias home='cd ~'
 alias cd..='cd ..'
@@ -120,11 +114,11 @@ alias ldir="ls -l | egrep '^d'" # directories only
 
 # special
 alias ls='exa -hl --icons --color=always --group-directories-first'
-alias ll='exa -halF --icons --color=always --group-directories-first'
+alias ll='exa -hal --icons --color=always --group-directories-first'
 alias la='exa -a --icons --color=always --group-directories-first'
 alias l='exa --icons --color=always --group-directories-first'
-alias lis='exa -1 --icons --color=always --group-directories-first'
 alias l.='exa -a | egrep "^\."'
+alias lis='exa -1 --icons --color=always --group-directories-first'
 
 # alias chmod commands
 alias mx='chmod a+x'
@@ -183,7 +177,6 @@ alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' 
 # SHA1
 alias sha1='openssl sha1'
 alias clickpaste='sleep 3; xdotool type "$(xclip -o -selection clipboard)"'
-
 alias lookingglass="~/looking-glass-B5.0.1/client/build/looking-glass-client -F"
 alias cpu="grep 'cpu ' /proc/stat | awk '{usage=(\$2+\$4)*100/(\$2+\$4+\$5)} END {print usage}' | awk '{printf(\"%.1f\n\", \$1)}'"
 
@@ -534,11 +527,11 @@ echo -n "$var"
 }
 # GitHub Titus Additions
 
-gcom() {
+gac() {
 git add .
 git commit -m "$1"
 }
-lazyg() {
+lgac() {
 git add .
 git commit -m "$1"
 git push
@@ -547,7 +540,6 @@ git push
 # #######################################################
 # ## fzf-tab  
 # #######################################################
-
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
 # set descriptions format to enable group support
@@ -559,9 +551,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --icons --color=always $real
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
 zstyle ':fzf-tab:*' show-group full
-# disable sort when completing options of any command
 zstyle ':completion:complete:*:options' sort false
-# use input as query string when completing zlua
 zstyle ':fzf-tab:complete:_zlua:*' query-string input
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --icons --color=always $realpath' # remember to use single quote here!!!
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
@@ -573,11 +563,8 @@ zstyle ':fzf-tab:complete:-command-:*' \
     fzf-preview '(out=$(tldr --color always "$word") 2>/dev/null && echo $out) || (out=$(MANWIDTH=$FZF_PREVIEW_COLUMNS man "$word") 2>/dev/null && echo $out) || (out=$(which "$word") && echo $out) || echo "${(P)word}"'
 zstyle ':fzf-tab:complete:tldr:argument-1' fzf-preview 'tldr --color always $word'
 zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' fzf-preview 'brew info $word'
-# this is an example
 zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'
 zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
-# Git
-# it is an example. you can change it
 zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
     'git diff $word | delta'
 zstyle ':fzf-tab:complete:git-log:*' fzf-preview \
@@ -595,6 +582,3 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 	"recent commit object name") git show --color=always $word | delta ;;
 	*) git log --color=always $word ;;
 esac'
-
-
-
