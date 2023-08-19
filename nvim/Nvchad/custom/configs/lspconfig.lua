@@ -19,22 +19,26 @@ lspconfig.pyright.setup({
 })
 
 lspconfig.lua_ls.setup({
+	on_attach = on_attach,
 	capabilities = capabilities,
+
 	settings = {
 		Lua = {
-			runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
-			completion = { enable = true, callSnippet = "Both" },
 			diagnostics = {
-				enable = true,
 				globals = { "vim" },
-				disable = { "lowercase-global" },
+			},
+			workspace = {
+				library = {
+					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+					[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+					[vim.fn.stdpath("data") .. "/lazy/extensions/nvchad_types"] = true,
+					[vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy"] = true,
+				},
+				maxPreload = 100000,
+				preloadFileSize = 10000,
 			},
 		},
 	},
-	on_attach = function(client, bufnr)
-		client.server_capabilities.signatureHelpProvider = false
-		on_attach(client, bufnr)
-	end,
 })
 
 lspconfig.html.setup({

@@ -144,6 +144,35 @@ local plugins = {
 			ensure_installed = { "html", "css", "bash", "c", "cpp", "python", "fish", "toml", "lua" },
 		},
 	},
+	{
+		"ahmedkhalf/project.nvim",
+		event = "VeryLazy",
+		opts = {
+			sync_root_with_cwd = true,
+			respect_buf_cwd = true,
+			update_focused_file = {
+				enable = true,
+				update_root = true,
+			},
+		},
+		config = function(_, opts)
+			-- local project_nvim = require("project_nvim")
+			-- local recent_projects = project_nvim.get_recent_projects()
+			-- print(vim.inspect(recent_projects))
+
+			require("project_nvim").setup({})
+			require("nvim-tree").setup(opts)
+			require("telescope").load_extension("projects")
+		end,
+	},
+	{
+		"nvim-telescope/telescope-file-browser.nvim",
+		event = "VeryLazy",
+		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+		config = function()
+			require("telescope").load_extension("file_browser")
+		end,
+	},
 }
 
 return plugins

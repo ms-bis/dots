@@ -88,6 +88,18 @@ M.general = {
 			end,
 			"Toggle terminal to current files directory",
 		},
+		["<leader>tp"] = {
+			function()
+				require("telescope").extensions.projects.projects({})
+			end,
+			"Telescope projects",
+		},
+		["<leader>tb"] = {
+			function()
+				require("telescope").extensions.file_browser.file_browser({})
+			end,
+			"Telescope projects",
+		},
 		["<C-x>"] = {
 			function()
 				vim.cmd([[normal! "0dd]])
