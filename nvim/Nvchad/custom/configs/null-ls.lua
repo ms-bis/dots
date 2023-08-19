@@ -18,6 +18,9 @@ local opts = {
 		-- html
 		null_ls.builtins.formatting.prettier,
 		null_ls.builtins.diagnostics.markuplint,
+		-- yaml
+		null_ls.builtins.formatting.prettier,
+		-- null_ls.builtins.diagnostics.yamllint,
 	},
 	on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then

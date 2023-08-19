@@ -5,6 +5,8 @@ case $- in
     *) return ;;
 esac
 
+set -o vi
+
 # Path to your oh-my-bash installation.
 export OSH='/home/msbis/.oh-my-bash'
 
@@ -15,18 +17,14 @@ completions=(
     composer
     ssh
 )
-
 aliases=(
     general
 )
-
 plugins=(
     git
     bashmarks
 )
-
 source "$OSH"/oh-my-bash.sh
-
 iatest=$(expr index "$-" i)
 
 # Source global definitions
@@ -44,7 +42,6 @@ fi
 #######################################################
 # EXPORTS
 #######################################################
-
 # Disable the bell
 if [[ $iatest > 0 ]]; then bind "set bell-style visible"; fi
 
@@ -96,16 +93,13 @@ alias ebrc='ni ~/.bashrc'
 alias ezrc='ni ~/.zshrc'
 alias efrc='ni ~/.config/fish/config.fish'
 alias lg='lazygit'
+alias web='cd /var/www/html'
 
 # Show help for this .bashrc file
 alias hlp='less ~/.bashrc_help'
 
 # alias to show the date
 alias da='date "+%Y-%m-%d %A %T %Z"'
-
-# alias to fix kde widgets
-alias fix='rm -rf .config/kde*  .config/plasma* .local/share/kde* .local/share/plasma* && cp -r Customization/local/* .local/share/ Customization/config/* .config/'
-alias bkup='cp -r .config/kde* ~/Customization/config/ .config/plasma* ~/Customization/config/ .local/share/plasma* ~/Customization/local/  .local/share/kde* ~/Customization/local/'
 
 # Alias's to modified commands
 alias cp='cp -i'
@@ -116,44 +110,16 @@ alias ps='ps auxf'
 alias ping='ping -c 10'
 alias less='less -R'
 alias c='clear'
-
-alias update='sudo nala update'
-alias upgrade='sudo nala upgrade'
-alias .apt='sudo nala'
-alias s.apt='sudo nala search'
-alias i.apt='sudo nala install'
-alias r.apt='sudo nala remove'
-alias sug='install-suggests'
-alias s.fpk='flatpak search'
-alias i.fpk='flatpak install'
-alias r.fpk='flatpak remove'
-alias s.snp='snap search'
-alias i.snp='snap install'
-alias r.snp='snap remove'
 alias colorscheme='bash -c "$(wget -qO- https://git.io/vQgMr)"'
-alias r.plasma='kwin_x11 --replace; plasmashell --replace'
-
 alias multitail='multitail --no-repeat -c'
 alias freshclam='sudo freshclam'
-
 alias kitty='LIBGL_ALWAYS_SOFTWARE=true GALLIUM_DRIVER=llvmpipe kitty'
-alias alacritty='LIBGL_ALWAYS_SOFTWARE=1 alacritty'
 alias gtc='git clone'
-
-alias svi='sudo vim'
-alias vis='nvim "+set si"'
 alias grep='grep --color=auto'
 alias ni='nvim'
-alias sni='sudo nvim'
 alias update-grub='sudo grub2-mkconfig -o "$(readlink -e /etc/grub2.cfg)"'
 alias evrc='edit ~/.vimrc'
 alias enrc='edit ~/.nanorc'
-alias na='nano'
-alias sna='sudo nano'
-alias li='lvim'
-alias sli='sudo lvim'
-alias firefox-esr='gtk3-nocsd firefox-esr'
-alias lutris='gtk3-nocsd lutris'
 alias Logout='qdbus org.kde.ksmserver /KSMServer logout 1 0 3'
 
 # Change directory aliases
@@ -249,6 +215,8 @@ alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' 
 alias sha1='openssl sha1'
 
 alias clickpaste='sleep 3; xdotool type "$(xclip -o -selection clipboard)"'
+alias lookingglass="~/looking-glass-B5.0.1/client/build/looking-glass-client -F"
+alias cpu="grep 'cpu ' /proc/stat | awk '{usage=(\$2+\$4)*100/(\$2+\$4+\$5)} END {print usage}' | awk '{printf(\"%.1f\n\", \$1)}'"
 
 #######################################################
 # SPECIAL FUNCTIONS
@@ -607,9 +575,6 @@ git commit -m "$1"
 git push
 }
 
-alias lookingglass="~/looking-glass-B5.0.1/client/build/looking-glass-client -F"
-alias cpu="grep 'cpu ' /proc/stat | awk '{usage=(\$2+\$4)*100/(\$2+\$4+\$5)} END {print usage}' | awk '{printf(\"%.1f\n\", \$1)}'"
-
 #######################################################
 # Set the ultimate amazing command prompt
 #######################################################
@@ -622,6 +587,7 @@ if [[ $- == *i* ]]; then # in interactive session
 fi
 
 . /home/msbis/.autojump/etc/profile.d/autojump.sh
+# [[ ${BLE_VERSION-} ]] && ble-attach
 colorscript -r
 
 eval "$(starship init bash)"
@@ -631,11 +597,9 @@ bind '"\e[B": history-search-forward'
 
 export VISUAL=nvim
 export EDITOR="$VISUAL"
-
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export PATH=$PATH:/home/msbis/.spicetify
 export PATH=$PATH:"$HOME/.local/bin:$HOME/.cargo/bin"
 export PATH=/usr/bin:$PATH/usr/bin/python3
 export OPENAI_KEY=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
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
-
-# source ~/github/ble.sh/out/ble.sh 
-# [[ ${BLE_VERSION-} ]] && ble-attach

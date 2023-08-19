@@ -1,9 +1,40 @@
 # scirpts
-colorscript -r
+# Check if Neovim is running
+if ! ps -ax | grep -q '[n]vim'
+    # Neovim is not running, so execute colorscript -r
+    colorscript -r
+end
 
 # app
 starship init fish | source
+
+# "bat" as manpager
+set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
+
+# vi-mode
 fish_vi_key_bindings
+
+# vi-mode bindings
+bind yy fish_clipboard_copy
+bind Y fish_clipboard_copy
+bind p fish_clipboard_paste
+
+# fish vi-mode cursor 
+function set_insert_mode_cursor
+  echo -en "\e[5 q"  # Set cursor style to blinking vertical bar (|) for insert mode
+end
+
+function set_normal_mode_cursor
+  echo -en "\e[2 q"  # Set cursor style to block (█) for normal mode
+end
+
+function fish_vi_cursor_handle --on-variable fish_bind_mode
+  if test "$fish_bind_mode" = "insert"
+    set_insert_mode_cursor
+  else
+    set_normal_mode_cursor
+  end
+end
 
 # paths, export, source 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -12,7 +43,6 @@ if test -d "/var/lib/flatpak/exports/bin"
     set -gx PATH "/var/lib/flatpak/exports/bin" $PATH
 end
 
-# exports
 set -gx VISUAL nvim
 set -gx EDITOR $VISUAL
 
@@ -23,16 +53,23 @@ set -x PATH $PATH ~/.local/bin/ ~/.cargo/bin
 set -x OPENAI_KEY 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
 
 # Add Python executable path to PATH
-set -x PATH /usr/bin $PATH /usr/bin/python3
+fish_add_path /usr/bin/python3
+
+# spotify-cli
+set -x PATH $PATH ~/.spicetify
 
 # auto ls after cd 
 function cd
-    builtin cd $argv
-    l
+    # Check if Neovim is running
+    if pgrep -x "nvim" > /dev/null
+        builtin cd $argv
+    else
+        builtin cd $argv
+        l
+    end
 end
 
 if status is-interactive
-
     # Commands to run in interactive sessions can go here
 end
 
@@ -74,44 +111,19 @@ alias ps='ps auxf'
 alias ping='ping -c 10'
 alias less='less -R'
 alias c='clear'
-
-alias update='sudo nala update'
-alias upgrade='sudo nala upgrade'
-alias .apt='sudo nala'
-alias s.apt='sudo nala search'
-alias i.apt='sudo nala install'
-alias r.apt='sudo nala remove'
-#alias sug='--install-suggests'
-alias s.fpk='flatpak search'
-alias i.fpk='flatpak install'
-alias r.fpk='flatpak remove'
-alias s.snp='snap search'
-alias i.snp='snap install'
-alias r.snp='snap remove'
-alias r.plasma='kwin_x11 --replace; plasmashell --replace'
-
+alias Logout='qdbus org.kde.ksmserver /KSMServer logout 1 0 3'
 alias multitail='multitail --no-repeat -c'
 alias freshclam='sudo freshclam'
-
-alias kitty='LIBGL_ALWAYS_SOFTWARE=true GALLIUM_DRIVER=llvmpipe kitty'
 alias gtc='git clone'
-
 alias colorscheme='bash -c "$(wget -qO- https://git.io/vQgMr)"'
-alias svi='sudo vim'
-alias vis='nvim "+set si"'
 alias grep='grep --color=auto'
 alias ni='nvim'
-alias sni='sudo nvim'
 alias update-grub='sudo grub2-mkconfig -o "$(readlink -e /etc/grub2.cfg)"'
 alias evrc='edit ~/.vimrc'
 alias enrc='edit ~/.nanorc'
-alias na='nano'
-alias sna='sudo nano'
-alias li='lvim'
-alias sli='sudo lvim'
-alias firefox-esr='gtk3-nocsd firefox-esr'
-alias lutris='gtk3-nocsd lutris'
-alias mpv='io.mpv.Mpv'
+	
+# Remove a directory and all files
+alias rmd='/bin/rm  --recursive --force --verbose '
 
 # Change directory aliases
 alias home='cd ~'
@@ -139,7 +151,7 @@ alias ldir="ls -l | egrep '^d'" # directories only
 
 # special
 alias ls='exa -hl --icons --color=always --group-directories-first'
-alias ll='exa -halF --icons --color=always --group-directories-first'
+alias ll='exa -hal --icons --color=always --group-directories-first'
 alias la='exa -a --icons --color=always --group-directories-first'
 alias l='exa --icons --color=always --group-directories-first'
 alias lis='exa -1 --icons --color=always --group-directories-first'
@@ -200,3 +212,5 @@ alias clickpaste='sleep 3; xdotool type "$(xclip -o -selection clipboard)"'
 # fish exclusive
 alias bcd='bettercd'
 alias bcdun='bettercd --undo'
+alias lookingglass="~/looking-glass-B5.0.1/client/build/looking-glass-client -F"
+alias cpu="grep 'cpu ' /proc/stat | awk '{usage=(\$2+\$4)*100/(\$2+\$4+\$5)} END {print usage}' | awk '{printf(\"%.1f\n\", \$1)}'"
