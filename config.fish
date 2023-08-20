@@ -1,9 +1,10 @@
 # scirpts
-# Check if Neovim is running
-if ! ps -ax | grep -q '[n]vim'
-    # Neovim is not running, so execute colorscript -r
+if status --is-interactive
     colorscript -r
 end
+
+set -Ux fifc_editor nvim
+set -U fifc_keybinding \cx
 
 # app
 starship init fish | source

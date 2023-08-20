@@ -603,3 +603,5 @@ export PATH=$PATH:"$HOME/.local/bin:$HOME/.cargo/bin"
 export PATH=/usr/bin:$PATH/usr/bin/python3
 export OPENAI_KEY=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
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
+
+source /home/msbis/.config/broot/launcher/bash/br
