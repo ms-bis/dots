@@ -12,7 +12,6 @@ export PATH=/usr/bin:$PATH/usr/bin/python3
 export PATH="${PATH}:${HOME}/.local/bin/"
 export PATH="${PATH}:${HOME}/.cargo/bin"
 export OPENAI_KEY=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
-# export BAT_THEME="gruvbox-dark"
 
 # history setup
 setopt SHARE_HISTORY
@@ -45,7 +44,7 @@ compinit
 autoload -Uz compinit && compinit
 _comp_options+=(globdots)		# Include hidden files.
 
-plugins=( git z zsh-autosuggestions zsh-syntax-highlighting web-search zsh-vi-mode command-not-found fzf fzf-tab zsh-completions ) # fast-syntax-highlighting zsh-autocomplete 
+plugins=( git z zsh-autosuggestions zsh-syntax-highlighting web-search zsh-vi-mode command-not-found fzf fzf-tab zsh-completions fast-syntax-highlighting )
 
 # sources
 source $ZSH/oh-my-zsh.sh
@@ -540,37 +539,51 @@ git push
 # #######################################################
 # ## fzf-tab  
 # #######################################################
-# disable sort when completing `git checkout`
-zstyle ':completion:*:git-checkout:*' sort false
-# set descriptions format to enable group support
-zstyle ':completion:*:descriptions' format '[%d]'
-# set list-colors to enable filename colorizing
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# preview directory's content with exa when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --icons --color=always $realpath'
-# switch group using `,` and `.`
+
+# fzf complitation
 zstyle ':fzf-tab:*' switch-group ',' '.'
 zstyle ':fzf-tab:*' show-group full
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:complete:*:options' sort false
-zstyle ':fzf-tab:complete:_zlua:*' query-string input
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --icons --color=always $realpath' # remember to use single quote here!!!
-zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
-zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
-export LESSOPEN='|~/.lessfilter %s'
-zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
-    fzf-preview 'echo ${(P)word}'
+zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-preview 'echo ${(P)word}'
 zstyle ':fzf-tab:complete:-command-:*' \
     fzf-preview '(out=$(tldr --color always "$word") 2>/dev/null && echo $out) || (out=$(MANWIDTH=$FZF_PREVIEW_COLUMNS man "$word") 2>/dev/null && echo $out) || (out=$(which "$word") && echo $out) || echo "${(P)word}"'
+
+#commands completation
+zstyle ':fzf-tab:complete:_zlua:*' query-string input
+zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 zstyle ':fzf-tab:complete:tldr:argument-1' fzf-preview 'tldr --color always $word'
 zstyle ':fzf-tab:complete:brew-(install|uninstall|search|info):*-argument-rest' fzf-preview 'brew info $word'
 zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'
 zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
-zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
-    'git diff $word | delta'
-zstyle ':fzf-tab:complete:git-log:*' fzf-preview \
-    'git log --color=always $word'
-zstyle ':fzf-tab:complete:git-help:*' fzf-preview \
-    'git help $word | bat -plman --color=always'
+
+# realtime image, text, directory preview
+zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
+zstyle ':fzf-tab:complete:*:*' fzf-preview '
+mime=$(file -bL --mime-type "$word")
+category=${mime%%/*}
+kind=${mime##*/}
+if [ -d "$realpath" ]; then
+	exa --git -hl --color=always --icons "$realpath"
+elif [ "$category" = image ]; then
+	chafa "$realpath"
+	exiftool "$realpath"
+elif [ "$kind" = vnd.openxmlformats-officedocument.spreadsheetml.sheet ] || \
+	[ "$kind" = vnd.ms-excel ]; then
+	in2csv "$realpath" | xsv table | bat -ltsv --color=always
+elif [ "$category" = text ]; then
+	bat --color=always "$realpath"
+else
+	lesspipe.sh "$realpath" 
+fi
+'
+
+# git completation
+zstyle ':completion:*:git-checkout:*' sort false
+zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word | delta'
+zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'
+zstyle ':fzf-tab:complete:git-help:*' fzf-preview 'git help $word | bat -plman --color=always'
 zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
     'case "$group" in
 	"commit tag") git show --color=always $word ;;
