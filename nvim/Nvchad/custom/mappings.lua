@@ -98,7 +98,7 @@ M.general = {
 			function()
 				require("telescope").extensions.file_browser.file_browser({})
 			end,
-			"Telescope projects",
+			"Telescope file browser",
 		},
 		["<C-x>"] = {
 			function()

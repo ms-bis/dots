@@ -1,5 +1,4 @@
 # [[ $- == *i* ]] && source ~/github/ble.sh/out/ble.sh --noattach
-
 case $- in
     *i*) ;;
     *) return ;;
@@ -10,7 +9,7 @@ set -o vi
 # Path to your oh-my-bash installation.
 export OSH='/home/msbis/.oh-my-bash'
 
-# OSH_THEME=""
+# OSH_THEME="agnoster"
 OMB_USE_SUDO=true
 completions=(
     git
@@ -27,11 +26,6 @@ plugins=(
 source "$OSH"/oh-my-bash.sh
 iatest=$(expr index "$-" i)
 
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
-fi
-
 # Enable bash programmable completion features in interactive shells
 if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
@@ -39,9 +33,9 @@ elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-#######################################################
-# EXPORTS
-#######################################################
+# #######################################################
+# # EXPORTS
+# #######################################################
 # Disable the bell
 if [[ $iatest > 0 ]]; then bind "set bell-style visible"; fi
 
@@ -80,6 +74,14 @@ export LESS_TERMCAP_se=$'\E[0m'
 export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
+
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+# export PATH=$PATH:/home/msbis/.spicetify
+export PATH=$PATH:"$HOME/.local/bin:$HOME/.cargo/bin"
+export PATH=/usr/bin:$PATH/usr/bin/python3
+export OPENAI_KEY=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
 
 #######################################################
 # GENERAL ALIAS'S
@@ -575,9 +577,9 @@ git commit -m "$1"
 git push
 }
 
-#######################################################
-# Set the ultimate amazing command prompt
-#######################################################
+# #######################################################
+# # Set the ultimate amazing command prompt
+# #######################################################
 if [ -d "/var/lib/flatpak/exports/bin" ] ; then
     PATH="/var/lib/flatpak/exports/bin:$PATH"
 fi
@@ -586,22 +588,12 @@ if [[ $- == *i* ]]; then # in interactive session
   bind 'set editing-mode vi'
 fi
 
-. /home/msbis/.autojump/etc/profile.d/autojump.sh
-# [[ ${BLE_VERSION-} ]] && ble-attach
-colorscript -r
-
-eval "$(starship init bash)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
+colorscript -r
+eval "$(starship init bash)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 source /home/msbis/.config/broot/launcher/bash/br
-
-export VISUAL=nvim
-export EDITOR="$VISUAL"
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-export PATH=$PATH:/home/msbis/.spicetify
-export PATH=$PATH:"$HOME/.local/bin:$HOME/.cargo/bin"
-export PATH=/usr/bin:$PATH/usr/bin/python3
-export OPENAI_KEY=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
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
+# . /home/msbis/.autojump/etc/profile.d/autojump.sh
+# # [[ ${BLE_VERSION-} ]] && ble-attach
