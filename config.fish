@@ -57,7 +57,7 @@ set -x OPENAI_KEY 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
 fish_add_path /usr/bin/python3
 
 # spotify-cli
-set -x PATH $PATH ~/.spicetify
+# set -x PATH $PATH ~/.spicetify
 
 # auto ls after cd 
 function cd
@@ -66,7 +66,7 @@ function cd
         builtin cd $argv
     else
         builtin cd $argv
-        l
+        exa --icons --color=always --group-directories-first
     end
 end
 
@@ -86,69 +86,70 @@ function lgac
 end 
 
 #######################################################
-# MACHINE SPECIFIC ALIAS'S
+# MACHINE SPECIFIC abbr'S
 #######################################################
 
-alias web='cd /var/www/html'
-alias lg='lazygit'
+abbr web 'cd /var/www/html'
+abbr lg 'lazygit'
 
 # Edit this .bashrc file
-alias ebrc='ni ~/.bashrc'
-alias ezrc='ni ~/.zshrc'
-alias efrc='ni ~/.config/fish/config.fish'
+abbr ebrc 'nvim ~/.bashrc'
+abbr ezrc 'nvim ~/.zshrc'
+abbr efrc 'nvim ~/.config/fish/config.fish'
 
 # Show help for this .bashrc file
-alias hlp='less ~/.bashrc_help'
+abbr hlp 'less ~/.bashrc_help'
 
-# alias to show the date
-alias da='date "+%Y-%m-%d %A %T %Z"'
+# abbr to show the date
+abbr da 'date "+%Y-%m-%d %A %T %Z"'
 
-# Alias's to modified commands
-alias cp='cp -i'
-alias mv='mv -i'
-alias rms='rm -iv'
-alias mkdir='mkdir -p'
-alias ps='ps auxf'
-alias ping='ping -c 10'
-alias less='less -R'
-alias c='clear'
-alias Logout='qdbus org.kde.ksmserver /KSMServer logout 1 0 3'
-alias multitail='multitail --no-repeat -c'
-alias freshclam='sudo freshclam'
-alias gtc='git clone'
-alias colorscheme='bash -c "$(wget -qO- https://git.io/vQgMr)"'
-alias grep='grep --color=auto'
-alias ni='nvim'
-alias update-grub='sudo grub2-mkconfig -o "$(readlink -e /etc/grub2.cfg)"'
-alias evrc='edit ~/.vimrc'
-alias enrc='edit ~/.nanorc'
-	
+# abbr's to modified commands
+abbr cp 'cp -i'
+abbr mv 'mv -i'
+abbr rms 'rm -iv'
+abbr mkdir 'mkdir -p'
+abbr ps 'ps auxf'
+abbr ping 'ping -c 10'
+abbr less 'less -R'
+abbr c 'clear'
+abbr Logout 'qdbus org.kde.ksmserver /KSMServer logout 1 0 3'
+abbr multitail 'multitail --no-repeat -c'
+abbr freshclam 'sudo freshclam'
+abbr gtc 'git clone'
+abbr colorscheme 'bash -c "$(wget -qO- https://git.io/vQgMr)"'
+abbr grep 'grep --color=auto'
+abbr ni 'nvim'
+abbr update-grub 'sudo grub2-mkconfig -o "$(readlink -e /etc/grub2.cfg)"'
+abbr evrc 'edit ~/.vimrc'
+abbr enrc 'edit ~/.nanorc'	
+abbr kitty 'LIBGL_ALWAYS_SOFTWARE=true GALLIUM_DRIVER=llvmpipe kitty'
+
 # Remove a directory and all files
-alias rmd='/bin/rm  --recursive --force --verbose '
+abbr rmd '/bin/rm  --recursive --force --verbose '
 
-# Change directory aliases
-alias home='cd ~'
-alias cd..='cd ..'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
+# Change directory abbres
+abbr home 'cd ~'
+abbr cd.. 'cd ..'
+abbr .. 'cd ..'
+abbr ... 'cd ../..'
+abbr .... 'cd ../../..'
+abbr ..... 'cd ../../../..'
 
 # cd into the old directory
-alias bd='cd "$OLDPWD"'
+abbr bd 'cd "$OLDPWD"'
 
-alias le='ls -aFh --color=always' # add colors and file type extensions
-alias lx='ls -lXBh' # sort by extension
-alias lk='ls -lSrh' # sort by size
-alias lc='ls -lcrh' # sort by change time
-alias lu='ls -luh' # sort by access time
-alias lr='ls -lRh' # recursive ls
-alias lt='ls -ltrh' # sort by date
-alias lm='ls -alh |more' # pipe through 'more'
-alias lw='ls -xAh' # wide listing format
-alias labc='ls -lap' #alphabetical sort
-alias lf="ls -l | egrep -v '^d'" # files only
-alias ldir="ls -l | egrep '^d'" # directories only
+abbr le 'ls -ah --color=always' # add colors and file type extensions
+abbr lx 'ls -lXBh' # sort by extension
+abbr lk 'ls -lSrh' # sort by size
+abbr lc 'ls -lcrh' # sort by change time
+abbr lu 'ls -luh' # sort by access time
+abbr lr 'ls -lRh' # recursive ls
+abbr lt 'ls -ltrh' # sort by date
+abbr lm 'ls -alh |more' # pipe through 'more'
+abbr lw 'ls -xAh' # wide listing format
+abbr labc 'ls -lap' #alphabetical sort
+abbr lf "ls -l | egrep -v '^d'" # files only
+abbr ldir "ls -l | egrep '^d'" # directories only
 
 # special
 alias ls='exa -hl --icons --color=always --group-directories-first'
@@ -158,60 +159,61 @@ alias l='exa --icons --color=always --group-directories-first'
 alias lis='exa -1 --icons --color=always --group-directories-first'
 alias l.='exa -a | egrep "^\."'
 
-# alias chmod commands
-alias mx='chmod a+x'
-alias 000='chmod -R 000'
-alias 644='chmod -R 644'
-alias 664='chmod -R 664'
-alias 666='chmod -R 666'
-alias 755='chmod -R 755'
-alias 777='chmod -R 777'
+# abbr chmod commands
+abbr mx 'chmod a+x'
+abbr 000 'chmod -R 000'
+abbr 644 'chmod -R 644'
+abbr 664 'chmod -R 664'
+abbr 666 'chmod -R 666'
+abbr 755 'chmod -R 755'
+abbr 777 'chmod -R 777'
 
 # Search command line history
-alias h="history | grep "
+abbr h "history | grep "
 
 # Search running processes
-alias p="ps aux | grep "
-alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
+abbr p "ps aux | grep "
+abbr topcpu "/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
 
 # Search files in the current folder
-alias f="find . | grep "
-
-# To see if a command is aliased, a file, or a built-in command
-alias checkcommand="type"
+abbr f "find . | grep "
+abbr g "grep -rni --color=auto "
+# To see if a command is abbred, a file, or a built-in command
+abbr checkcommand "type"
 
 # Show current network connections to the server
-alias ipview="netstat -anpl | grep :80 | awk {'print \$5'} | cut -d\":\" -f1 | sort | uniq -c | sort -n | sed -e 's/^ *//' -e 's/ *\$//'"
+abbr ipview "netstat -anpl | grep :80 | awk {'print \$5'} | cut -d\":\" -f1 | sort | uniq -c | sort -n | sed -e 's/^ *//' -e 's/ *\$//'"
 
 # Show open ports
-alias openports='netstat -nape --inet'
+abbr openports 'netstat -nape --inet'
 
-# Alias's for safe and forced reboots
-alias rebootsafe='sudo shutdown -r now'
-alias rebootforce='sudo shutdown -r -n now'
+# abbr's for safe and forced reboots
+abbr rebootsafe 'sudo shutdown -r now'
+abbr rebootforce 'sudo shutdown -r -n now'
 
-# Alias's to show disk space and space used in a folder
-alias diskspace="du -S | sort -n -r |more"
-alias folders='du -h --max-depth=1'
-alias folderssort='find . -maxdepth 1 -type d -print0 | xargs -0 du -sk | sort -rn'
-alias tree='tree -CAhF --dirsfirst'
-alias treed='tree -CAFd'
-alias mountedinfo='df -hT'
+# abbr's to show disk space and space used in a folder
+abbr diskspace "du -S | sort -n -r |more"
+abbr folders 'du -h --max-depth=1'
+abbr folderssort 'find . -maxdepth 1 -type d -print0 | xargs -0 du -sk | sort -rn'
+abbr tree 'tree -CAhF --dirsfirst'
+abbr treed 'tree -CAFd'
+abbr mountedinfo 'df -hT'
 
-# Alias's for archives
-alias mktar='tar -cvf'
-alias mkbz2='tar -cvjf'
-alias mkgz='tar -cvzf'
-alias untar='tar -xvf'
-alias unbz2='tar -xvjf'
-alias ungz='tar -xvzf'
+# abbr's for archives
+abbr mktar 'tar -cvf'
+abbr mkbz2 'tar -cvjf'
+abbr mkgz 'tar -cvzf'
+abbr untar 'tar -xvf'
+abbr unbz2 'tar -xvjf'
+abbr ungz 'tar -xvzf'
 
 # SHA1
-alias sha1='openssl sha1'
-alias clickpaste='sleep 3; xdotool type "$(xclip -o -selection clipboard)"'
+abbr sha1 'openssl sha1'
+abbr clickpaste 'sleep 3; xdotool type "$(xclip -o -selection clipboard)"'
 
 # fish exclusive
-alias bcd='bettercd'
-alias bcdun='bettercd --undo'
-alias lookingglass="~/looking-glass-B5.0.1/client/build/looking-glass-client -F"
-alias cpu="grep 'cpu ' /proc/stat | awk '{usage=(\$2+\$4)*100/(\$2+\$4+\$5)} END {print usage}' | awk '{printf(\"%.1f\n\", \$1)}'"
+abbr bcd 'bettercd'
+abbr bcdun 'bettercd --undo'
+abbr lookingglass "~/looking-glass-B5.0.1/client/build/looking-glass-client -F"
+abbr cpu "grep 'cpu ' /proc/stat | awk '{usage=(\$2+\$4)*100/(\$2+\$4+\$5)} END {print usage}' | awk '{printf(\"%.1f\n\", \$1)}'"
+# set -f --export SHELL (command --search fish)
