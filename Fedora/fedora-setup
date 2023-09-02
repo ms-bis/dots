@@ -1,18 +1,193 @@
-# Brave browser
+#!/bin/sh
+# Check if Script is Run as Root
+if [[ $EUID -ne 0 ]]; then
+  echo "You must be a root user to run this script, please run sudo ./install.sh" 2>&1
+  exit 1
+fi
+
+username=$(id -u -n 1000)
+builddir=$(pwd)
+
+# update system
+sudo dnf update
+# free && non-free
+sudo dnf install 
+  # non-free
+  https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-38.noarch.rpm \
+  # free
+  https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-38.noarch.rpm \
+
+# group install
+sudo dnf groupinstall Development Tools
+sudo dnf groupupdate core              
+sudo dnf groupupdate sound-and-video   
+
+# brave repo
 sudo dnf install dnf-plugins-core
-
 sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-
 sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 
-sudo dnf install brave-browser
-aurorae plasma colorscheme kvanyum
-padding 85
+# vscode repo
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 
-mkdir .vim/undo
+# open-bangla
+bash -c "$(wget -q https://raw.githubusercontent.com/OpenBangla/OpenBangla-Keyboard/master/tools/install.sh -O -)"
+# remove office
+sudo dnf remove libreoffice-draw.x86_64 libreoffice-impress.x86_64 libreoffice-writer.x86_64 libreoffice-calc.x86_64
+# check update
+sudo dnf check-update
 
-mpv from brew/flatpak
+# multimedia codec
+sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
+sudo dnf install lame\* --exclude=lame-devel
+sudo dnf group upgrade --with-optional Multimedia
 
-if [ -d "/var/lib/flatpak/exports/bin" ] ; then
-    PATH="/var/lib/flatpak/exports/bin:$PATH"
-fi
+# essentials 
+sudo dnf install git curl wget 
+# build essentials 
+sudo dnf install cmake automake autoconf intltool libtool cmake extra-cmake-modules gcc gcc-c++ glib fontconfig python-rich clang 
+# kde-dev
+sudo dnf install kde-runtime qt5-qtbase-devel qt5-qtdeclarative-devel qt5-qtx11extr kf5-plasma-devel kf5-kconfigwidgets-devel kf  
+# gtk-dev
+sudo dnf install cairo-devel libev-devel libjpeg-turbo-devel libXinerama libxkbcommon-devel openssl-devel openssl gtk-murrine-engine libXft-devel.x86_64 libcurl-gnutls
+# programming & frameworks essential 
+sudo dnf install DevIL-devel SDL2-devel gcc-go golang-bin libmng-devel libmodplug-devel libtheora-devel libtiff-devel libvorbis-devel luajit-devel \
+  mesa-libGL-devel mpg123-devel openal-soft-devel physfs-devel sdl12-compat-devel        
+# shell
+sudo dnf install zsh fish 
+# exclusive dependency's 
+sudo dnf install java-11-openjdk java-latest-openjdk-devel.x86_64 \
+  gettext pass msmtp isync
+# package-manager
+sudo dnf install cargo npm snapd flatpak luarocks python3-pip gnome-software copr-cli dnf-plugins-core
+# tools
+sudo dnf install vim neovim mutt neomutt exa fzf ripgrep ranger neofetch htop btop cava chafa bat name tldr fd-find mpd mpc timidity++ wildmidi youtube-dl autojump \
+  translate-shell most hexyl dmenu pandoc xkill boost lxappearance gpm feh dunst mpv-libs mpv-devel xset boost-context prename lynx abook notmuch hardcode-tray i3lock
+# utility 
+sudo dnf install kvantum mpv thunderbird flameshot alacritty kate qbittorrent redshift redshift-gtk webapp-manager rofi bismuth screenkey tmux 
+# apps 
+sudo dnf install inkscape calibre simplescreenrecorder ktechlab kalgebra code brave-browser brave-keyring qalculate codeblocks 
+# gaming & wine 
+sudo dnf install steam lutris wine winetricks 
+# VLC
+sudo dnf install vlc vlc-bittorrent.x86_64 vlc-extras.x86_64 vlc-devel.x86_64 libvlcpp-devel.noarch
+# fonts
+sudo dnf install fontawesome5-fonts-all.noarch 
+
+# coprs
+sudo dnf copr enable refi64/webapp-manager
+sudo dnf install webapp-manager
+sudo dnf copr enable foopsss/shell-color-scripts
+sudo dnf install shell-color-scripts
+
+# cargo
+cargo install viu tree-sitter dym broot
+# python 
+pip install yt-dlp pycritty rich vpython subliminal
+pip install --upgrade pip wheel setuptools requests dnspython psutil netifaces
+pip install --install-option="--themes=all" pycritty\n
+
+# snap
+sudo ln -s /var/lib/snapd/snap /snap
+sudo snap install hearts ohmygiraffe snap-store gmail-desktop 
+# flatpak
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+sudo flatpak override org.gnome.Calculator --filesystem=$HOME/.themes
+sudo flatpak override org.gnome.Calculator --filesystem=$HOME/.icons 
+echo "set default theme and icon"
+flatpak install flathub \
+  io.mpv.Mpv \
+  md.obsidian.Obsidian \
+  org.onlyoffice.desktopeditors	\
+  com.slack.Slack \
+  net.davidotek.pupgui2	\
+  io.github.cboxdoerfer.FSearch	\
+  io.freetubeapp.FreeTube \
+  io.github.amit9838.weather \
+  io.github._0xzer0x.qurancompanion \
+  com.github.unrud.VideoDownloader \
+  com.protonvpn.www
+
+# nvim
+git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
+# starship
+curl -sS https://starship.rs/install.sh | sh
+# brew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# oh-my-bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"
+# oh-my-zsh
+echo "n" | sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# fisher
+fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher'
+# zsh-vi-mode
+git clone https://github.com/jeffreytse/zsh-vi-mode $ZSH_CUSTOM/plugins/zsh-vi-mode
+# zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+# zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+# fzf-tab
+git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
+# zsh-completions
+git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
+
+# shell
+echo "bash - colorscript oh-my-bash, disabled spicefy autojump ble.sh"
+echo "zsh - oh-my-zsh zsh-completions fzf-tab zsh-vi-mode zsh-autosuggestions zsh-syntax-highlighting, disabled fast-syntax-highlighting"
+echo "fish - fisher fish_plugins"
+
+# sym-link
+ln -s $builddir/nvim/Nvchad/custom /home/$username/.config/nvim/lua/
+ln -s $builddir/bashrc /home/$username/.bashrc
+ln -s $builddir/zshrc /home/$username/.zshrc
+ln -s $builddir/vimrc /home/$username/.vimrc
+ln -s $builddir/tmux.conf /home/$username/.tmux.conf
+ln -s $builddir/starship.toml /home/$username/.config/
+ln -s $builddir/alacritty /home/$username/.config/
+ln -s $builddir/macchina /home/$username/.config/
+ln -s $builddir/btop /home/$username/.config/
+ln -s $builddir/wallpapers /home/$username/
+ln -s $builddir/config.fish /home/$username/.config/fish/
+ln -s $builddir/fish_plugins /home/$username/.config/fish/
+ln -s $builddir/ranger /home/$username/.config/
+ln -s $builddir/mpv/mpv /home/$username/.var/app/io.mpv.Mpv/config/
+
+sudo ln -s $builddir/nvim/Nvchad/custom /root/.config/nvim/lua/
+sudo ln -s $builddir/bashrc /root/.bashrc
+sudo ln -s $builddir/zshrc /root/.zshrc
+sudo ln -s $builddir/vimrc /root/.vimrc
+sudo ln -s $builddir/starship.toml /root/.config/
+sudo ln -s $builddir/config.fish /root/.config/fish/
+sudo ln -s $builddir/fish_plugins /root/.config/fish/
+sudo ln -s $builddir/macchina /root/.config/
+sudo ln -s $builddir/btop /root/.config/
+
+# fonts
+mkdir /home/$username/.fonts
+wget https://use.fontawesome.com/releases/v6.4.2/fontawesome-free-6.4.2-desktop.zip
+unzip fontawesome*.zip -d /home/$username/.fonts
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip
+unzip FiraCode.zip -d /home/$username/.fonts
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Meslo.zip
+unzip Meslo.zip -d /home/$username/.fonts
+wget -O Roboto.zip https://fonts.google.com/download?family=Roboto
+unzip Roboto.zip -d /home/$username/.fonts
+sudo cp -r /home/$username/.fonts/* /usr/share/fonts/
+fc-cache -vf
+
+# ranger config
+ranger --copy-config=all
+git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
+echo "default_linemode devicons" >> $HOME/.config/ranger/rc.conf
+
+source /home/$username/.bashrc
+
+# brew 
+brew install diff-so-fancy bottom gdu lazygit macchina gmp gitmoji \
+  pcre six unzip expat readline mpdecimal gcc binutils zstd zlib isl 
+
+echo "configuration successfully finished" 2>&1
+
+echo "needs improvement flatpak snap brew placement" 2>&1
+

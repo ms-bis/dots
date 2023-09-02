@@ -11,7 +11,7 @@ visible=true
 glyph=" ⬤ "
 
 [box]
-title=" msbis "
+title=" yeti "
 border="rounded"
 visible=true
 
@@ -25,8 +25,8 @@ key_color=false
 separator_color=false
 
 [custom_ascii]
-color="#ED8796"
-path="~/.config/macchina/themes/ascii-redhat.txt"
+color="#8AADF4"
+path="~/.config/macchina/themes/ascii-arch.txt"
 
 [keys]
 host=" host"
@@ -42,5 +42,5 @@ uptime = " Uptime"
 resolution = "󰍹 Resolution"
 cpu=" cpu"
 cpu_load=" cpu"
-memory=" memory"
+memory="󰍛 memory"
 battery=" battery"

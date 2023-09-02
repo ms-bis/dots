@@ -5,7 +5,7 @@ end
 
 set -Ux fifc_editor nvim
 set -U fifc_keybinding \cx
-
+set fish_greeting
 # app
 starship init fish | source
 
@@ -38,7 +38,7 @@ function fish_vi_cursor_handle --on-variable fish_bind_mode
 end
 
 # paths, export, source 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 if test -d "/var/lib/flatpak/exports/bin"
     set -gx PATH "/var/lib/flatpak/exports/bin" $PATH
@@ -117,7 +117,7 @@ abbr multitail 'multitail --no-repeat -c'
 abbr freshclam 'sudo freshclam'
 abbr gtc 'git clone'
 abbr colorscheme 'bash -c "$(wget -qO- https://git.io/vQgMr)"'
-abbr grep 'grep --color=auto'
+# abbr grep 'grep --color=auto'
 abbr ni 'nvim'
 abbr update-grub 'sudo grub2-mkconfig -o "$(readlink -e /etc/grub2.cfg)"'
 abbr evrc 'edit ~/.vimrc'
@@ -148,7 +148,7 @@ abbr lt 'ls -ltrh' # sort by date
 abbr lm 'ls -alh |more' # pipe through 'more'
 abbr lw 'ls -xAh' # wide listing format
 abbr labc 'ls -lap' #alphabetical sort
-abbr lf "ls -l | egrep -v '^d'" # files only
+abbr lF "ls -l | egrep -v '^d'" # files only
 abbr ldir "ls -l | egrep '^d'" # directories only
 
 # special
