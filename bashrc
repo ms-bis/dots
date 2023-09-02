@@ -7,7 +7,7 @@ esac
 set -o vi
 
 # Path to your oh-my-bash installation.
-export OSH='/home/msbis/.oh-my-bash'
+ export OSH='/home/msbis/.oh-my-bash'
 
 # OSH_THEME="agnoster"
 OMB_USE_SUDO=true
@@ -16,22 +16,23 @@ completions=(
     composer
     ssh
 )
-aliases=(
+ aliases=(
     general
 )
 plugins=(
     git
     bashmarks
 )
+
 source "$OSH"/oh-my-bash.sh
 iatest=$(expr index "$-" i)
 
 # Enable bash programmable completion features in interactive shells
-if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-fi
+# if [ -f /usr/share/bash-completion/bash_completion ]; then
+#     . /usr/share/bash-completion/bash_completion
+# elif [ -f /etc/bash_completion ]; then
+#     . /etc/bash_completion
+# fi
 
 # #######################################################
 # # EXPORTS
@@ -148,7 +149,7 @@ alias lt='ls -ltrh'               # sort by date
 alias lm='ls -alh |more'          # pipe through 'more'
 alias lw='ls -xAh'                # wide listing format
 alias labc='ls -lap'             #alphabetical sort
-alias lf="ls -l | egrep -v '^d'" # files only
+alias lF="ls -l | egrep -v '^d'" # files only
 alias ldir="ls -l | egrep '^d'"  # directories only
 
 # special listing
@@ -591,9 +592,11 @@ fi
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
+. /home/msbis/.autojump/etc/profile.d/autojump.sh
+source /usr/share/doc/pkgfile/command-not-found.bash
+
 colorscript -r
 eval "$(starship init bash)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-source /home/msbis/.config/broot/launcher/bash/br
-# . /home/msbis/.autojump/etc/profile.d/autojump.sh
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# source /home/msbis/.config/broot/launcher/bash/br
 # # [[ ${BLE_VERSION-} ]] && ble-attach
