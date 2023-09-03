@@ -57,7 +57,7 @@ set -x OPENAI_KEY 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
 fish_add_path /usr/bin/python3
 
 # spotify-cli
-# set -x PATH $PATH ~/.spicetify
+set -x PATH $PATH ~/.spicetify
 
 # auto ls after cd 
 function cd
