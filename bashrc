@@ -5,6 +5,7 @@ case $- in
 esac
 
 set -o vi
+echo -e "\e[5 q"
 
 # Path to your oh-my-bash installation.
  export OSH='/home/msbis/.oh-my-bash'

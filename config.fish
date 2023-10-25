@@ -1,6 +1,7 @@
 # scirpts
 if status --is-interactive
     colorscript -r
+  # pfetch
 end
 
 set -Ux fifc_editor nvim
@@ -20,26 +21,21 @@ bind yy fish_clipboard_copy
 bind Y fish_clipboard_copy
 bind p fish_clipboard_paste
 
-# fish vi-mode cursor 
-function set_insert_mode_cursor
-  echo -en "\e[5 q"  # Set cursor style to blinking vertical bar (|) for insert mode
-end
+# fish cursor
+if status is-interactive
+  set fish_cursor_default     block      blink
+  set fish_cursor_insert      line       blink
+  set fish_cursor_replace_one underscore blink
+  set fish_cursor_visual      block
 
-function set_normal_mode_cursor
-  echo -en "\e[2 q"  # Set cursor style to block (█) for normal mode
-end
-
-function fish_vi_cursor_handle --on-variable fish_bind_mode
-  if test "$fish_bind_mode" = "insert"
-    set_insert_mode_cursor
-  else
-    set_normal_mode_cursor
+  function fish_user_key_bindings
+    fish_default_key_bindings -M insert
+    fish_vi_key_bindings --no-erase insert
   end
 end
 
 # paths, export, source 
 # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
 if test -d "/var/lib/flatpak/exports/bin"
     set -gx PATH "/var/lib/flatpak/exports/bin" $PATH
 end
@@ -63,6 +59,8 @@ set -x PATH $PATH ~/.spicetify
 function cd
     # Check if Neovim is running
     if pgrep -x "nvim" > /dev/null
+        builtin cd $argv
+    else if pgrep -x "code" > /dev/null
         builtin cd $argv
     else
         builtin cd $argv
@@ -117,7 +115,7 @@ abbr multitail 'multitail --no-repeat -c'
 abbr freshclam 'sudo freshclam'
 abbr gtc 'git clone'
 abbr colorscheme 'bash -c "$(wget -qO- https://git.io/vQgMr)"'
-# abbr grep 'grep --color=auto'
+abbr grep 'grep --color=auto'
 abbr ni 'nvim'
 abbr update-grub 'sudo grub2-mkconfig -o "$(readlink -e /etc/grub2.cfg)"'
 abbr evrc 'edit ~/.vimrc'

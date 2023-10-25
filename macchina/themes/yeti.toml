@@ -26,10 +26,10 @@ separator_color=false
 
 [custom_ascii]
 color="#8AADF4"
-path="~/.config/macchina/themes/ascii-arch.txt"
+path="~/.config/macchina/themes/ascii-arch-new.txt"
 
 [keys]
-host=" host"
+host="󰌢 host"
 kernel=" kernel"
 distro="󱄛 distro"
 de = "󰊬 DE"
