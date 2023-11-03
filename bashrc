@@ -593,8 +593,7 @@ fi
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
-. /home/msbis/.autojump/etc/profile.d/autojump.sh
-source /usr/share/doc/pkgfile/command-not-found.bash
+. /home/msbis/.autojump/share/autojump/autojump.bash
 
 colorscript -r
 eval "$(starship init bash)"

@@ -1,7 +1,6 @@
 # scirpts
 if status --is-interactive
-    colorscript -r
-  # pfetch
+   colorscript -r
 end
 
 set -Ux fifc_editor nvim
